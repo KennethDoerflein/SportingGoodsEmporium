@@ -1,0 +1,1 @@
+GRANT SELECT, INSERT, DELETE, UPDATE ON kennethdoerfleinadamnixondatabase.* TO kennethdoerfleinadamnixon@localhost IDENTIFIED BY ' kennethdoerfleinadamnixonpass';
