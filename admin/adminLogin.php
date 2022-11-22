@@ -12,7 +12,7 @@
 <body>
     <div class="container">
         <h1 class="text-center">Admin Login</h1>
-        <form method="POST" class = "form-horizontal" action="./scripts/adminLoginCheck.php">
+        <form method="POST" class = "form-horizontal" action="./adminScripts/adminLoginCheck.php">
             <div class=" form-group row mb-2">
                 <label class="col-form-label col-sm-2" for="email">Email:</label>
                 <div class="col-sm-10">
