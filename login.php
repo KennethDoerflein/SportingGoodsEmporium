@@ -1,3 +1,11 @@
+<?php
+    session_start();
+    //if already logged in go to homepage
+    if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true)) {
+		    header('Location: ./homepage.php');
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

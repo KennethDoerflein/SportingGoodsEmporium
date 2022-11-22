@@ -48,7 +48,7 @@
         $_SESSION['logged_in'] = true;
         $_SESSION['email'] = $email;
         $_SESSION['account'] = $result['accountNumber'];
-        $_SESSION['userType'] = $result['customer'];
+        $_SESSION['userType'] = 'customer';
         header('Location: ../homepage.php');
     } else{
         $_SESSION['invalid_password'] = true;
