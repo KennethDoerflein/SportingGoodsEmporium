@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 19, 2022 at 01:09 AM
+-- Generation Time: Nov 23, 2022 at 10:12 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `sportinggoodsemporiumdatabase`
 --
+CREATE DATABASE IF NOT EXISTS `sportinggoodsemporiumdatabase` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `sportinggoodsemporiumdatabase`;
 
 -- --------------------------------------------------------
 
@@ -51,6 +53,13 @@ CREATE TABLE `customer` (
   `dateOpened` date NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `customer`
+--
+
+INSERT INTO `customer` (`accountNumber`, `email`, `Fname`, `Lname`, `password`, `address`, `phoneNumber`, `dateOpened`) VALUES
+('16908224', 'test@test.com', 'test', 'test', '$2y$10$h3SDCgB5Gs9h8eREDm4Ca.y9iY9JZOaDR3q0kxE.uARE1VtSSEvPy', '123 test Road Test NJ 12345', '999-999-9999', '2022-11-20');
+
 -- --------------------------------------------------------
 
 --
@@ -68,6 +77,13 @@ CREATE TABLE `employee` (
   `salary` double NOT NULL,
   `startDate` date NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `employee`
+--
+
+INSERT INTO `employee` (`employeeID`, `email`, `Fname`, `Lname`, `password`, `address`, `phoneNumber`, `salary`, `startDate`) VALUES
+('12345678', 'admin@SGE.com', 'FirstName', 'LastName', '$2y$10$h3SDCgB5Gs9h8eREDm4Ca.y9iY9JZOaDR3q0kxE.uARE1VtSSEvPy', '123 admin road', '123-456-7890', 500000, '2022-11-21');
 
 -- --------------------------------------------------------
 
