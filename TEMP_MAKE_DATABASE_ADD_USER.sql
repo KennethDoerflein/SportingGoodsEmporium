@@ -23,6 +23,8 @@ SET time_zone = "+00:00";
 CREATE DATABASE IF NOT EXISTS `sportinggoodsemporiumdatabase` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `sportinggoodsemporiumdatabase`;
 
+GRANT SELECT, INSERT, DELETE, UPDATE ON sportinggoodsemporiumdatabase.* TO sportinggoodsemporium@localhost IDENTIFIED BY 'sportinggoodsemporiumpass';
+
 -- --------------------------------------------------------
 
 --
