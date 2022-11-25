@@ -52,6 +52,8 @@ if (password_verify($admin_password, $result['password'])) {
 
   $query = $db->prepare("DELETE FROM product WHERE productID = :productID");
   $query->bindParam(':productID', $productID);
+  $query = $db->prepare("DELETE FROM cart WHERE productID = :productID");
+  $query->bindParam(':productID', $productID);
 }
 
 if ($query->execute()) {
