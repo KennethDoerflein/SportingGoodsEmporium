@@ -63,7 +63,9 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (is
             <option value="Tops">Tops</option>
             <option value="Bottoms">Bottoms</option>
             <option value="Shoes">Shoes</option>
-            <option value="TEMP">TEMP</option>
+            <option value="Hats">Hats</option>
+            <option value="Socks">Socks</option>
+            <option value="Exercise Equipment">Exercise Equipment</option>
           </select>
         </div>
       </div>
