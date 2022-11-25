@@ -1,14 +1,14 @@
 <?php
-    session_start();
-    if (!isset($_SESSION['logged_in'])) {
-		//if not logged in, redirects user to landing page
-		header('Location: ./adminLogin.php');
-	}
+session_start();
+if (!isset($_SESSION['logged_in'])) {
+    //if not logged in, redirects user to landing page
+    header('Location: ./adminLogin.php');
+}
 
-    if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true)) {
-		//if customer, redirects user to customer homepage
-		header('Location: ../homepage.php');
-	}
+if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true)) {
+    //if customer, redirects user to customer homepage
+    header('Location: ../homepage.php');
+}
 ?>
 
 <!doctype html>
@@ -24,12 +24,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title>SGE</title>
 </head>
+
 <body>
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="./adminHomepage.php">Home</a>
             <a class="navbar-brand" href="#">Products</a>
-            <form class="d-flex" role="search">
+            <form class="d-flex mx-auto" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success me-3" type="submit">Search</button>
             </form>
@@ -37,9 +38,24 @@
             <a class="navbar-brand" href="../scripts/logout.php">Logout</a>
         </div>
     </nav>
-    <?php 
-        echo"logged in user email: ".$_SESSION['email'];
-        echo"<br>logged in user account number: ".$_SESSION['account'];
+    <?php
+    // echo "logged in user email: " . $_SESSION['email'];
+    // echo "<br>logged in user account number: " . $_SESSION['account'];
     ?>
+    <div class="text-center container-fluid p-2 mt-4">
+        <h3 class="mx-auto">Admin Panel</h3>
+    </div>
+
+    <hr class="mx-auto mb-4">
+
+    <div class="d-grid gap-4 col-4 mx-auto">
+        <a href="./#" class="btn btn-dark disabled" role="button">View Orders</a>
+        <a href="./adminRegister.php" class="btn btn-dark" role="button">Add Admin</a>
+        <a href="./addProduct.php" class="btn btn-dark" role="button">Add Product</a>
+        <a href="./modifyProduct.php" class="btn btn-dark" role="button">Modify Product</a>
+        <a href="./removeProduct.php" class="btn btn-dark" role="button">Remove Product</a>
+    </div>
+
 </body>
+
 </html>

@@ -15,7 +15,7 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (is
 <html lang="en">
 
 <head>
-  <title>Admin Registration</title>
+  <title>Add Product</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -37,55 +37,62 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (is
     </div>
   </nav>
   <div class="container">
-    <h1 class="text-center"><strong>Admin Registration</strong></h1>
-    <div class="text-center mb-3">Enter the information below:</div>
-    <form method="POST" class="form-horizontal" action="./adminScripts/adminRegistrationCheck.php" oninput='repassword.setCustomValidity(repassword.value != password.value ? "Passwords do not match." : "")'>
+    <h1 class="text-center"><strong>Add a Product</strong></h1>
+    <div class="text-center mb-3">Enter the product information below:</div>
+    <form enctype="multipart/form-data" method="POST" class="form-horizontal" action="./adminScripts/addProductCheck.php">
 
       <div class=" form-group row mb-2">
-        <label class="col-form-label col-sm-2" for="email">Email:</label>
+        <label class="col-form-label col-sm-2" for="product_name">Product Name/Title:</label>
         <div class="col-sm-10">
-          <input required type="email" class="form-control" id="email" placeholder="example@example.com" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+          <input required type="text" class="form-control" id="product_name" name="product_name">
         </div>
       </div>
 
       <div class=" form-group row mb-2">
-        <label class="col-form-label col-sm-2" for="password">Password:</label>
+        <label class="col-form-label col-sm-2" for="product_category">Product Category:</label>
         <div class="col-sm-10">
-          <input required type="password" class="form-control" id="password" placeholder="Enter Password" name="password">
+          <input required type="text" class="form-control" id="product_category" name="product_category">
         </div>
       </div>
 
       <div class=" form-group row mb-2">
-        <label class="col-form-label col-sm-2" for="repassword">Retype Password:</label>
+        <label class="col-form-label col-sm-2" for="product_price">Product Price:</label>
         <div class="col-sm-10">
-          <input required type="password" class="form-control" id="repassword" placeholder="Reenter Password" name="repassword">
+          <input required type="number" class="form-control" id="product_price" placeholder="Ex: xx.xx" name="product_price" pattern="\d?\d\.\d\d" maxlength=5 size=5 min=0.01 step=0.01>
         </div>
       </div>
 
       <div class=" form-group row mb-2">
-        <label class="col-form-label col-sm-2" for="first_name">First Name:</label>
+        <label class="col-form-label col-sm-2" for="product_manufacturer">Product Manufacturer:</label>
         <div class="col-sm-10">
-          <input required type="text" class="form-control" id="first_name" placeholder="Enter First Name" name="firstName">
+          <input required type="text" class="form-control" id="product_manufacturer" name="product_manufacturer">
         </div>
       </div>
 
       <div class=" form-group row mb-2">
-        <label class="col-form-label col-sm-2" for="last_name">Last Name:</label>
+        <label class="col-form-label col-sm-2" for="product_description">Product Description:</label>
         <div class="col-sm-10">
-          <input required type="text" class="form-control" id="last_name" placeholder="Enter Last Name" name="lastName">
+          <input required type="text" class="form-control" id="product_description" name="product_description">
         </div>
       </div>
 
       <div class=" form-group row mb-2">
-        <label class="col-form-label col-sm-2" for="phone_num">Phone Number:</label>
+        <label class="col-form-label col-sm-2" for="product_quantity">Product Quantity:</label>
         <div class="col-sm-10">
-          <input required type="text" class="form-control" id="phone_num" placeholder="999-999-9999" name="phoneNum" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+          <input required type="number" class="form-control" id="product_quantity" name="product_quantity" min=1>
+        </div>
+      </div>
+
+      <div class=" form-group row mb-2">
+        <label class="col-form-label col-sm-2" for="product_image">Product Image:</label>
+        <div class="col-sm-10">
+          <input required type="file" class="form-control" id="product_image" name="product_image">
         </div>
       </div>
 
       <div class="form-group row">
         <div class="offset-sm-2 col-sm-10 mt-2">
-          <button type="submit" class="btn btn-success">Create Account</button>
+          <button type="submit" class="btn btn-dark" name="submit">Add Product</button>
           <button type="reset" class="btn btn-danger">Clear</button>
         </div>
       </div>
