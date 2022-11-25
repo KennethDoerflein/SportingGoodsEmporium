@@ -64,6 +64,9 @@ $query->closeCursor();
                             <li><a class="dropdown-item" href="?category_id=Tops">Tops</a></li>
                             <li><a class="dropdown-item" href="?category_id=Bottoms">Bottoms</a></li>
                             <li><a class="dropdown-item" href="?category_id=Shoes">Shoes</a></li>
+                            <li><a class="dropdown-item" href="?category_id=Hats">Hats</a></li>
+                            <li><a class="dropdown-item" href="?category_id=Socks">Socks</a></li>
+                            <li><a class="dropdown-item" href="?category_id=Exercise Equipment">Exercise Equipment</a></li>
                         </ul>
                     </li>
                 </ul>
