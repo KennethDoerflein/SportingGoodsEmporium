@@ -32,7 +32,6 @@ $products = $query->fetchAll();
   <title>SGE</title>
 </head>
 
-<>
   <nav class="navbar navbar-dark bg-dark mb-5">
     <div class="container-fluid">
       <a class="navbar-brand" href="./adminHomepage.php">Home</a>
