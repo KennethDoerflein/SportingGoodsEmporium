@@ -29,7 +29,7 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (is
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="./adminHomepage.php">Home</a>
-            <a class="navbar-brand" href="#">Products</a>
+            <a class="navbar-brand" href="adminProducts.php">Products</a>
             <form class="d-flex mx-auto" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success me-3" type="submit">Search</button>
