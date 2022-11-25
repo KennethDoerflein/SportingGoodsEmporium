@@ -58,7 +58,13 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (is
       <div class=" form-group row mb-2">
         <label class="col-form-label col-sm-2" for="product_category">Product Category:</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="product_category" name="product_category">
+          <select class="form-control" name="product_category" id="product_category">
+            <option value="">Select</option>
+            <option value="Tops">Tops</option>
+            <option value="Bottoms">Bottoms</option>
+            <option value="Shoes">Shoes</option>
+            <option value="TEMP">TEMP</option>
+          </select>
         </div>
       </div>
 

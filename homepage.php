@@ -1,5 +1,8 @@
 <?php
+//includes database connection
+require_once './db_connect.php';
 session_start();
+
 if (!isset($_SESSION['logged_in'])) {
     //if not logged in, redirects user to landing page
     header('Location: ./index.php');
@@ -9,6 +12,18 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'admin') && (isset
     //if admin, redirects user to admin homepage
     header('Location: ./admin/adminHomepage.php');
 }
+
+$category_id = filter_input(INPUT_GET, 'category_id');
+if ($category_id == NULL || $category_id == FALSE || $category_id == "All") {
+    $query = $db->prepare("SELECT * FROM product");
+} else {
+    $query = $db->prepare("SELECT * FROM product where category = :category");
+    $query->bindValue(':category', $category_id);
+}
+
+$query->execute();
+$products = $query->fetchAll();
+$query->closeCursor();
 ?>
 
 <!doctype html>
@@ -37,7 +52,7 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'admin') && (isset
 </head>
 
 <body>
-    <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <nav class="navbar navbar-expand navbar-dark bg-dark mb-5">
         <div class="container-fluid">
             <a class="navbar-brand" href="./homepage.php">Home</a>
             <div class="collapse navbar-collapse">
@@ -45,9 +60,10 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'admin') && (isset
                     <li class="nav-item dropdown">
                         <a class="navbar-brand dropdown-toggle" href="#" data-bs-toggle="dropdown">Categories</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Tops</a></li>
-                            <li><a class="dropdown-item" href="#">Bottoms</a></li>
-                            <li><a class="dropdown-item" href="#">Shoes</a></li>
+                            <li><a class="dropdown-item" href="?category_id=All">All Products</a></li>
+                            <li><a class="dropdown-item" href="?category_id=Tops">Tops</a></li>
+                            <li><a class="dropdown-item" href="?category_id=Bottoms">Bottoms</a></li>
+                            <li><a class="dropdown-item" href="?category_id=Shoes">Shoes</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -62,9 +78,26 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'admin') && (isset
         </div>
     </nav>
     <?php
-    echo "logged in user email: " . $_SESSION['email'];
-    echo "<br>logged in user account number: " . $_SESSION['account'];
+    // echo "logged in user email: " . $_SESSION['email'];
+    // echo "<br>logged in user account number: " . $_SESSION['account'];
     ?>
+    <div class="mx-auto container-fluid row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 g-4 text-center">
+        <?php foreach ($products as $product) : ?>
+            <?php
+            echo '<div class="col mx-auto">';
+            echo '<div class="border border-dark border-3 mx-auto card h-100 text-center" style="width: 20rem;">';
+            echo '<img height="450"src="./' . $product['image'] . '" class="card-img-top">';
+            echo '<div class="card-body">';
+            echo '<strong class="card-title">' . $product['name'] . '</strong>';
+            echo '<p class="card-text">$' . $product['price'] . '</p>';
+            echo '<a href="#" class="btn btn-dark">View Product</a>';
+            echo '</div>';
+            echo '</div>';
+            echo '</div>';
+            ?>
+        <?php endforeach; ?>
+    </div>
+    <div class="mb-5"></div>
 </body>
 
 </html>

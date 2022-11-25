@@ -1,13 +1,13 @@
 <?php
 session_start();
 if (!isset($_SESSION['logged_in'])) {
-    //if not logged in, redirects user to landing page
-    header('Location: ./adminLogin.php');
+  //if not logged in, redirects user to landing page
+  header('Location: ./adminLogin.php');
 }
 
 if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true)) {
-    //if customer, redirects user to customer homepage
-    header('Location: ../homepage.php');
+  //if customer, redirects user to customer homepage
+  header('Location: ../homepage.php');
 }
 ?>
 
@@ -51,7 +51,12 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (is
       <div class=" form-group row mb-2">
         <label class="col-form-label col-sm-2" for="product_category">Product Category:</label>
         <div class="col-sm-10">
-          <input required type="text" class="form-control" id="product_category" name="product_category">
+          <select class="form-control" name="product_category" id="product_category">
+            <option value="Tops">Tops</option>
+            <option value="Bottoms">Bottoms</option>
+            <option value="Shoes">Shoes</option>
+            <option value="TEMP">TEMP</option>
+          </select>
         </div>
       </div>
 
