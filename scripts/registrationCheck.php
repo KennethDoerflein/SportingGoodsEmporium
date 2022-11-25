@@ -104,6 +104,9 @@ if ($query->execute()) {
 	//redirects to homepage if successful
 	$_SESSION['reg_success'] = true;
 	$_SESSION['logged_in'] = true;
+	$_SESSION['email'] = $email;
+	$_SESSION['account'] = $result['accountNumber'];
+	$_SESSION['userType'] = 'customer';
 	header("Location: ../homepage.php");
 } else {
 	//redirects to registration page if failed

@@ -60,13 +60,13 @@ $query->closeCursor();
                     <li class="nav-item dropdown">
                         <a class="navbar-brand dropdown-toggle" href="#" data-bs-toggle="dropdown">Categories</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="?category_id=All">All Products</a></li>
-                            <li><a class="dropdown-item" href="?category_id=Tops">Tops</a></li>
-                            <li><a class="dropdown-item" href="?category_id=Bottoms">Bottoms</a></li>
-                            <li><a class="dropdown-item" href="?category_id=Shoes">Shoes</a></li>
-                            <li><a class="dropdown-item" href="?category_id=Hats">Hats</a></li>
-                            <li><a class="dropdown-item" href="?category_id=Socks">Socks</a></li>
-                            <li><a class="dropdown-item" href="?category_id=Exercise Equipment">Exercise Equipment</a></li>
+                            <li><a class="dropdown-item" href="./homepage.php?category_id=All">All Products</a></li>
+                            <li><a class="dropdown-item" href="./homepage.php?category_id=Tops">Tops</a></li>
+                            <li><a class="dropdown-item" href="./homepage.php?category_id=Bottoms">Bottoms</a></li>
+                            <li><a class="dropdown-item" href="./homepage.php?category_id=Shoes">Shoes</a></li>
+                            <li><a class="dropdown-item" href="./homepage.php?category_id=Hats">Hats</a></li>
+                            <li><a class="dropdown-item" href="./homepage.php?category_id=Socks">Socks</a></li>
+                            <li><a class="dropdown-item" href="./homepage.php?category_id=Exercise Equipment">Exercise Equipment</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -75,7 +75,7 @@ $query->closeCursor();
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success me-3" type="submit">Search</button>
             </form>
-            <a class="navbar-brand" href="./account.php">Cart</a>
+            <a class="navbar-brand" href="./cart.php">Cart</a>
             <a class="navbar-brand" href="./account.php">Account</a>
             <a class="navbar-brand" href="./scripts/logout.php">Logout</a>
         </div>
@@ -89,11 +89,11 @@ $query->closeCursor();
             <?php
             echo '<div class="col mx-auto">';
             echo '<div class="border border-dark border-3 mx-auto card h-100 text-center" style="width: 20rem;">';
-            echo '<img height="450"src="./' . $product['image'] . '" class="card-img-top">';
+            echo '<img height="70%"src="./' . $product['image'] . '" class="card-img-top">';
             echo '<div class="card-body">';
             echo '<strong class="card-title">' . $product['name'] . '</strong>';
             echo '<p class="card-text">$' . $product['price'] . '</p>';
-            echo '<a href="#" class="btn btn-dark">View Product</a>';
+            echo '<a href="./productView.php?productID='. $product['productID'] .'" class="btn btn-dark">View Product</a>';
             echo '</div>';
             echo '</div>';
             echo '</div>';
