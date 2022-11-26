@@ -15,9 +15,9 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (is
 
 $searchReq = filter_input(INPUT_GET, 'searchQuery');
 if ($searchReq != NULL || $searchReq != FALSE) {
-    $query = $db->prepare("SELECT * FROM PRODUCT WHERE name like :search OR description like :search OR manufacturer like :search OR category like :search ORDER BY category DESC");
-    $query->bindValue(':search', "%".$searchReq."%");
-}else{
+  $query = $db->prepare("SELECT * FROM PRODUCT WHERE name like :search OR description like :search OR manufacturer like :search OR category like :search ORDER BY category DESC");
+  $query->bindValue(':search', "%" . $searchReq . "%");
+} else {
   $query = $db->prepare("SELECT * FROM product");
 }
 $query->execute();
@@ -38,37 +38,37 @@ $products = $query->fetchAll();
   <title>SGE</title>
 </head>
 
-  <nav class="navbar navbar-dark bg-dark mb-5">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="./adminHomepage.php">Home</a>
-      <a class="navbar-brand" href="./adminProducts.php">Products</a>
-      <form class="d-flex mx-auto" role="search" method="get" action="./adminProducts.php">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
-                <button class="btn btn-outline-success me-3" type="submit">Search</button>
-            </form>
-      <a class="navbar-brand" href="./adminAccount.php">Account</a>
-      <a class="navbar-brand" href="../scripts/logout.php">Logout</a>
-    </div>
-  </nav>
-  <div class="mx-auto container-fluid row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 g-4 text-center">
-    <?php foreach ($products as $product) : ?>
-      <?php
-      echo '<div class="col mx-auto">';
-      echo '<div class="border border-dark border-3 mx-auto card h-100 text-center" style="width: 20rem;">';
-      echo '<img height="450"src="../' . $product['image'] . '" class="card-img-top">';
-      echo '<div class="card-body">';
-      echo '<strong class="card-title">' . $product['name'] . '</strong>';
-      echo '<p class="card-text">Price: $' . $product['price'] . '</p>';
-      echo '<p class="card-text">Product ID: ' . $product['productID'] . '</p>';
-      echo '<p class="card-text">Quantity: ' . $product['quantity'] . '</p>';
-      echo '<a href="#" class="btn btn-dark">View Product</a>';
-      echo '</div>';
-      echo '</div>';
-      echo '</div>';
-      ?>
-    <?php endforeach; ?>
+<nav class="navbar navbar-dark bg-dark mb-5">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="./adminHomepage.php">Home</a>
+    <a class="navbar-brand" href="./adminProducts.php">Products</a>
+    <form class="d-flex mx-auto" role="search" method="get" action="./adminProducts.php">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
+      <button class="btn btn-outline-success me-3" type="submit">Search</button>
+    </form>
+    <a class="navbar-brand" href="./adminAccount.php">Account</a>
+    <a class="navbar-brand" href="../scripts/logout.php">Logout</a>
   </div>
-  <div class="mb-5"></div>
-  </body>
+</nav>
+<div class="mx-auto container-fluid row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 g-4 text-center">
+  <?php foreach ($products as $product) : ?>
+    <?php
+    echo '<div class="col mx-auto">';
+    echo '<div class="border border-dark border-3 mx-auto card h-100 text-center" style="width: 20rem;">';
+    echo '<img height="450"src="../' . $product['image'] . '" class="card-img-top">';
+    echo '<div class="card-body">';
+    echo '<strong class="card-title">' . $product['name'] . '</strong>';
+    echo '<p class="card-text">Price: $' . $product['price'] . '</p>';
+    echo '<p class="card-text">Product ID: ' . $product['productID'] . '</p>';
+    echo '<p class="card-text">Quantity: ' . $product['quantity'] . '</p>';
+    echo '<a href="#" class="btn btn-dark">View Product</a>';
+    echo '</div>';
+    echo '</div>';
+    echo '</div>';
+    ?>
+  <?php endforeach; ?>
+</div>
+<div class="mb-5"></div>
+</body>
 
 </html>

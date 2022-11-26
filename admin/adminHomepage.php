@@ -49,7 +49,7 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (is
     <hr class="mx-auto mb-4">
 
     <div class="d-grid gap-4 col-4 mx-auto">
-        <a href="./#" class="btn btn-dark disabled" role="button">View Orders</a>
+        <a href="./adminOrderList.php" class="btn btn-dark" role="button">View Orders</a>
         <a href="./adminRegister.php" class="btn btn-dark" role="button">Add Admin</a>
         <a href="./addProduct.php" class="btn btn-dark" role="button">Add Product</a>
         <a href="./modifyProduct.php" class="btn btn-dark" role="button">Modify Product</a>
