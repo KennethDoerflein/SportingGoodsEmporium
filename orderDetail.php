@@ -12,8 +12,10 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'admin') && (isset
   //if admin, redirects user to admin homepage
   header('Location: ./admin/adminHomepage.php');
 }
-$query = $db->prepare("SELECT PRODUCT.productID, PRODUCT.price, PRODUCT.name, PRODUCT.image, CART.quantity, CART.dateAdded FROM CART INNER JOIN PRODUCT ON PRODUCT.productID = CART.productID WHERE CART.accountNumber = :accountNumber ORDER BY dateAdded DESC");
-$query->bindValue(':accountNumber', $_SESSION['account']);
+
+$orderNumber = filter_input(INPUT_GET, 'orderNumber');
+$query = $db->prepare("SELECT PRODUCT.productID, ORDERS.price, ORDERS.shippingAddress, ORDERS.billingAddress, PRODUCT.name, PRODUCT.image, ORDERS.quantity FROM ORDERS INNER JOIN PRODUCT ON PRODUCT.productID = ORDERS.productID WHERE ORDERS.orderNumber = :orderNumber");
+$query->bindValue(':orderNumber', $orderNumber);
 
 $query->execute();
 $products = $query->fetchAll();
@@ -67,9 +69,9 @@ $total = 0.0;
         </ul>
       </div>
       <form class="d-flex" role="search" method="get" action="./homepage.php">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
-                <button class="btn btn-outline-success me-3" type="submit">Search</button>
-            </form>
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
+        <button class="btn btn-outline-success me-3" type="submit">Search</button>
+      </form>
       <a class="navbar-brand" href="./cart.php">Cart</a>
       <a class="navbar-brand" href="./account.php">Account</a>
       <a class="navbar-brand" href="./scripts/logout.php">Logout</a>
@@ -77,7 +79,7 @@ $total = 0.0;
   </nav>
 
   <table class="table text-center align-middle mx-auto container-fluid" style="max-width: 90%;">
-  <h3 class="text-center"><u>Cart</u></h3>
+    <h3 class="text-center"><u>Order # <?php echo $orderNumber ?></u></h3>
     <thead>
       <tr>
         <th scope="col"></th>
@@ -85,7 +87,6 @@ $total = 0.0;
         <th scope="col">Price</th>
         <th scope="col">Quantity</th>
         <th scope="col">Subtotal</th>
-        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
@@ -100,17 +101,16 @@ $total = 0.0;
       <td>$' . $product['quantity'] * $product['price'] . '</td>' ?>
         <?php $total += doubleval($product['quantity'] * $product['price']); ?>
         <?php
-        echo '<td><a href="./scripts/removeFromCart.php?productID=' . $product['productID'] . '" class="btn btn-danger">Remove</a></td>
-      </tr>
-    ';
-        ?>
+        echo '</tr>'; ?>
       <?php endforeach; ?>
     </tbody>
   </table>
   <div class="mx-auto container-fluid text-center">
-    <h4><?php if($query->rowCount() != 0){ echo 'Total: $'.$total; }else{echo 'Shopping Cart Is Empty';}?></h4>
-    <a href="./checkoutPage.php" class="btn btn-dark btn-lg <?php if($query->rowCount() == 0){
-            echo 'disabled';} ?>">Checkout</a>
+    <h4><?php if ($query->rowCount() != 0) {
+          echo 'Order Total: $' . $total;
+          echo '<br><br><u>Shipping Address</u><br>' . $product['shippingAddress'];
+          echo '<br><br><u>Billing Address</u><br>' . $product['billingAddress'];
+        }?></h4>
   </div>
 
   <div class="mb-5"></div>

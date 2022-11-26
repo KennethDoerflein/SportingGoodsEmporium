@@ -76,7 +76,7 @@ $query->closeCursor();
   </nav>
   <div class="mx-auto container-fluid text-center">
     <?php if ($_SESSION['userType'] == 'customer') {
-      echo '<a href="./orders.php" class="btn btn-dark disabled">View Orders</a>';
+      echo '<a href="./orderList.php" class="btn btn-dark">View Orders</a>';
     } 
     echo '<div class="mb-5"></div>';
     echo '<hr>';
