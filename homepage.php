@@ -91,9 +91,9 @@ $query->closeCursor();
     <div class="mx-auto container-fluid row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 g-4 text-center">
         <?php foreach ($products as $product) : ?>
             <?php
-            echo '<div class="col mx-auto">';
+            echo '<div class="col">';
             echo '<div class="border border-dark border-3 mx-auto card h-100 text-center" style="width: 20rem;">';
-            echo '<img height="70%"src="./' . $product['image'] . '" class="card-img-top">';
+            echo '<img style="max-height: 450px;" src="./' . $product['image'] . '" class="card-img-top">';
             echo '<div class="card-body">';
             echo '<strong class="card-title">' . $product['name'] . '</strong>';
             echo '<p class="card-text">$' . $product['price'] . '</p>';
