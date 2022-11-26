@@ -66,10 +66,10 @@ $total = 0.0;
           </li>
         </ul>
       </div>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success me-3" type="submit">Search</button>
-      </form>
+      <form class="d-flex" role="search" method="get" action="./homepage.php">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
+                <button class="btn btn-outline-success me-3" type="submit">Search</button>
+            </form>
       <a class="navbar-brand" href="./cart.php">Cart</a>
       <a class="navbar-brand" href="./account.php">Account</a>
       <a class="navbar-brand" href="./scripts/logout.php">Logout</a>
