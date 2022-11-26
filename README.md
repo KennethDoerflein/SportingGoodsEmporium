@@ -8,3 +8,4 @@ To Do
 - [ ] check quantity when you order, update cart and show message
 - [x] make sure different picture sizes don't break cards
 - [ ] make sure nothing is broken and everything works
+- [ ] maybe add search to admin order list
