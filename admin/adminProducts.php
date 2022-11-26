@@ -13,7 +13,13 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (is
   header('Location: ../homepage.php');
 }
 
-$query = $db->prepare("SELECT * FROM product");
+$searchReq = filter_input(INPUT_GET, 'searchQuery');
+if ($searchReq != NULL || $searchReq != FALSE) {
+    $query = $db->prepare("SELECT * FROM PRODUCT WHERE name like :search OR description like :search OR manufacturer like :search OR category like :search ORDER BY category DESC");
+    $query->bindValue(':search', "%".$searchReq."%");
+}else{
+  $query = $db->prepare("SELECT * FROM product");
+}
 $query->execute();
 $products = $query->fetchAll();
 ?>
@@ -36,10 +42,10 @@ $products = $query->fetchAll();
     <div class="container-fluid">
       <a class="navbar-brand" href="./adminHomepage.php">Home</a>
       <a class="navbar-brand" href="./adminProducts.php">Products</a>
-      <form class="d-flex mx-auto" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success me-3" type="submit">Search</button>
-      </form>
+      <form class="d-flex mx-auto" role="search" method="get" action="./adminProducts.php">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
+                <button class="btn btn-outline-success me-3" type="submit">Search</button>
+            </form>
       <a class="navbar-brand" href="./adminAccount.php">Account</a>
       <a class="navbar-brand" href="../scripts/logout.php">Logout</a>
     </div>

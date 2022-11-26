@@ -14,7 +14,11 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'admin') && (isset
 }
 
 $category_id = filter_input(INPUT_GET, 'category_id');
-if ($category_id == NULL || $category_id == FALSE || $category_id == "All") {
+$searchReq = filter_input(INPUT_GET, 'searchQuery');
+if ($searchReq != NULL || $searchReq != FALSE) {
+    $query = $db->prepare("SELECT * FROM PRODUCT WHERE name like :search OR description like :search OR manufacturer like :search OR category like :search ORDER BY category DESC");
+    $query->bindValue(':search', "%".$searchReq."%");
+} else if ($category_id == NULL || $category_id == FALSE || $category_id == "All") {
     $query = $db->prepare("SELECT * FROM product");
 } else {
     $query = $db->prepare("SELECT * FROM product where category = :category");
@@ -71,8 +75,8 @@ $query->closeCursor();
                     </li>
                 </ul>
             </div>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <form class="d-flex" role="search" method="get" action="./homepage.php">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
                 <button class="btn btn-outline-success me-3" type="submit">Search</button>
             </form>
             <a class="navbar-brand" href="./cart.php">Cart</a>
@@ -93,7 +97,7 @@ $query->closeCursor();
             echo '<div class="card-body">';
             echo '<strong class="card-title">' . $product['name'] . '</strong>';
             echo '<p class="card-text">$' . $product['price'] . '</p>';
-            echo '<a href="./productView.php?productID='. $product['productID'] .'" class="btn btn-dark">View Product</a>';
+            echo '<a href="./productView.php?productID=' . $product['productID'] . '" class="btn btn-dark">View Product</a>';
             echo '</div>';
             echo '</div>';
             echo '</div>';
