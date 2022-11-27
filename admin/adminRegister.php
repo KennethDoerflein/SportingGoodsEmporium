@@ -1,13 +1,28 @@
 <?php
 session_start();
 if (!isset($_SESSION['logged_in'])) {
-    //if not logged in, redirects user to landing page
-    header('Location: ./adminLogin.php');
+  //if not logged in, redirects user to landing page
+  header('Location: ./adminLogin.php');
 }
 
 if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true)) {
-    //if customer, redirects user to customer homepage
-    header('Location: ../homepage.php');
+  //if customer, redirects user to customer homepage
+  header('Location: ../homepage.php');
+}
+
+// check notices
+if (!empty($_SESSION['registration_error']) && $_SESSION['registration_error']) {
+  $notice = 'Please Try Again';
+  $_SESSION['registration_error'] = '';
+} else if (!empty($_SESSION['email_taken']) && $_SESSION['email_taken']) {
+  $notice = 'Email is Taken';
+  $_SESSION['email_taken'] = '';
+} else if (!empty($_SESSION['passMiss']) && $_SESSION['passMiss']) {
+  $notice = 'Passwords Do Not Match, Please Try Again';
+  $_SESSION['passMiss'] = '';
+} else if (!empty($_SESSION['reg_success']) && $_SESSION['reg_success']) {
+  $notice = 'Admin Account Created';
+  $_SESSION['reg_success'] = '';
 }
 ?>
 
@@ -29,15 +44,22 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (is
       <a class="navbar-brand" href="./adminHomepage.php">Home</a>
       <a class="navbar-brand" href="./adminProducts.php">Products</a>
       <form class="d-flex mx-auto" role="search" method="get" action="./adminProducts.php">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
-                <button class="btn btn-outline-success me-3" type="submit">Search</button>
-            </form>
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
+        <button class="btn btn-outline-success me-3" type="submit">Search</button>
+      </form>
       <a class="navbar-brand" href="./adminAccount.php">Account</a>
       <a class="navbar-brand" href="../scripts/logout.php">Logout</a>
     </div>
   </nav>
   <div class="container">
     <h1 class="text-center"><strong>Admin Registration</strong></h1>
+    <center>
+      <h1>
+        <div style='color: red;'><?php if (!empty($notice)) {
+                                    echo $notice;
+                                  } ?></div>
+      </h1>
+    </center>
     <div class="text-center mb-3">Enter the information below:</div>
     <form method="POST" class="form-horizontal" action="./adminScripts/adminRegistrationCheck.php" oninput='repassword.setCustomValidity(repassword.value != password.value ? "Passwords do not match." : "")'>
 

@@ -9,6 +9,27 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (is
   //if customer, redirects user to customer homepage
   header('Location: ../homepage.php');
 }
+
+// check notices
+if (!empty($_SESSION['missing_input']) && $_SESSION['missing_input']) {
+  $notice = 'Please Try Again';
+  $_SESSION['missing_input'] = '';
+} else if (!empty($_SESSION['image_name_exists']) && $_SESSION['image_name_exists']) {
+  $notice = 'Please Rename Image';
+  $_SESSION['image_name_exists'] = '';
+} else if (!empty($_SESSION['file_too_large']) && $_SESSION['file_too_large']) {
+  $notice = 'Please Use a Smaller Image';
+  $_SESSION['file_too_large'] = '';
+} else if (!empty($_SESSION['invalid_file_type']) && $_SESSION['invalid_file_type']) {
+  $notice = 'Invalid File Type';
+  $_SESSION['invalid_file_type'] = '';
+} else if (!empty($_SESSION['invalidPass']) && $_SESSION['invalidPass']) {
+  $notice = 'Invalid Password';
+  $_SESSION['invalidPass'] = '';
+} else if (!empty($_SESSION['modifyProduct_success']) && $_SESSION['modifyProduct_success']) {
+  $notice = 'Product Was Modified';
+  $_SESSION['modifyProduct_success'] = '';
+}
 ?>
 
 <!DOCTYPE html>
@@ -29,16 +50,23 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (is
       <a class="navbar-brand" href="./adminHomepage.php">Home</a>
       <a class="navbar-brand" href="./adminProducts.php">Products</a>
       <form class="d-flex mx-auto" role="search" method="get" action="./adminProducts.php">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
-                <button class="btn btn-outline-success me-3" type="submit">Search</button>
-            </form>
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
+        <button class="btn btn-outline-success me-3" type="submit">Search</button>
+      </form>
       <a class="navbar-brand" href="./adminAccount.php">Account</a>
       <a class="navbar-brand" href="../scripts/logout.php">Logout</a>
     </div>
   </nav>
   <div class="container">
     <h1 class="text-center"><strong>Modify a Product</strong></h1>
-    <div class="text-center mb-3">Only fill in the product information you want changed::</div>
+    <center>
+      <h1>
+        <div style='color: red;'><?php if (!empty($notice)) {
+                                    echo $notice;
+                                  } ?></div>
+      </h1>
+    </center>
+    <div class="text-center mb-3">Only fill in the product information you want changed:</div>
     <form enctype="multipart/form-data" method="POST" class="form-horizontal" action="./adminScripts/modifyProductCheck.php">
 
       <div class=" form-group row mb-2">

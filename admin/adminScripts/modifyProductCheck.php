@@ -24,6 +24,7 @@ $product_description = trim($_POST['product_description']);
 $product_quantity = trim($_POST['product_quantity']);
 $admin_password = trim($_POST['admin_password']);
 $adminID = $_SESSION['account'];
+$errFree = true;
 
 $query = $db->prepare("SELECT image FROM product WHERE productID = :productID");
 $query->bindParam(':productID', $productID);
@@ -32,7 +33,7 @@ $query->bindParam(':productID', $productID);
 $query->execute();
 $productInfo = $query->fetch();
 
-if (!$productInfo) {
+if (!$productID) {
   $_SESSION['missing_input'] = true;
   header('Location: ../modifyProduct.php');
 
@@ -51,7 +52,7 @@ $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 $query = $db->prepare("SELECT * FROM employee WHERE employeeID = :adminID");
 $query->bindParam(':adminID', $adminID);
 
-//gets any elements from database that has matching email
+//gets any elements from database that has matching id
 $query->execute();
 $result = $query->fetch();
 
@@ -101,60 +102,82 @@ if (password_verify($admin_password, $result['password'])) {
       }
     }
   }
-}
 
-if ($product_name) {
-  $query = $db->prepare("UPDATE product SET name = :product_name WHERE productID = :productID");
-  $query->bindParam(':product_name', $product_name);
-  $query->bindParam(':productID', $productID);
-  $query->execute();
-}
+  
+  if ($product_name) {
+    $query = $db->prepare("UPDATE product SET name = :product_name WHERE productID = :productID");
+    $query->bindParam(':product_name', $product_name);
+    $query->bindParam(':productID', $productID);
+    if (!$query->execute()) {
+      $errFree = false;
+    }
+  }
 
-if ($product_category) {
-  $query = $db->prepare("UPDATE product SET category = :product_category WHERE productID = :productID");
-  $query->bindParam(':product_category', $product_category);
-  $query->bindParam(':productID', $productID);
-  $query->execute();
-}
+  if ($product_category) {
+    $query = $db->prepare("UPDATE product SET category = :product_category WHERE productID = :productID");
+    $query->bindParam(':product_category', $product_category);
+    $query->bindParam(':productID', $productID);
+    if (!$query->execute()) {
+      $errFree = false;
+    }
+  }
 
-if ($product_price) {
-  $query = $db->prepare("UPDATE product SET price = :product_price WHERE productID = :productID");
-  $query->bindParam(':product_price', $product_price);
-  $query->bindParam(':productID', $productID);
-  $query->execute();
-}
+  if ($product_price) {
+    $query = $db->prepare("UPDATE product SET price = :product_price WHERE productID = :productID");
+    $query->bindParam(':product_price', $product_price);
+    $query->bindParam(':productID', $productID);
+    if (!$query->execute()) {
+      $errFree = false;
+    }
+  }
 
-if ($product_manufacturer) {
-  $query = $db->prepare("UPDATE product SET manufacturer = :product_manufacturer WHERE productID = :productID");
-  $query->bindParam(':product_manufacturer', $product_manufacturer);
-  $query->bindParam(':productID', $productID);
-  $query->execute();
-}
+  if ($product_manufacturer) {
+    $query = $db->prepare("UPDATE product SET manufacturer = :product_manufacturer WHERE productID = :productID");
+    $query->bindParam(':product_manufacturer', $product_manufacturer);
+    $query->bindParam(':productID', $productID);
+    if (!$query->execute()) {
+      $errFree = false;
+    }
+  }
 
-if ($product_description) {
-  $query = $db->prepare("UPDATE product SET description = :product_description WHERE productID = :productID");
-  $query->bindParam(':product_description', $product_description);
-  $query->bindParam(':productID', $productID);
-  $query->execute();
-}
+  if ($product_description) {
+    $query = $db->prepare("UPDATE product SET description = :product_description WHERE productID = :productID");
+    $query->bindParam(':product_description', $product_description);
+    $query->bindParam(':productID', $productID);
+    if (!$query->execute()) {
+      $errFree = false;
+    }
+  }
 
-if ($product_quantity) {
-  $query = $db->prepare("UPDATE product SET quantity = :product_quantity WHERE productID = :productID");
-  $query->bindParam(':product_quantity', $product_quantity);
-  $query->bindParam(':productID', $productID);
-  $query->execute();
+  if ($product_quantity) {
+    $query = $db->prepare("UPDATE product SET quantity = :product_quantity WHERE productID = :productID");
+    $query->bindParam(':product_quantity', $product_quantity);
+    $query->bindParam(':productID', $productID);
+    if (!$query->execute()) {
+      $errFree = false;
+    }
+  }
 } else {
-  $_SESSION['wrong_pass'] = true;
+  $_SESSION['invalidPass'] = true;
   header('Location: ../modifyProduct.php');
+
 
   //closes database connection
   $database = null;
   exit();
 }
 
+if ($errFree) {
+  $_SESSION['modifyProduct_success'] = true;
+  header("Location: ../modifyProduct.php");
+} else {
+  $_SESSION['missing_input'] = true;
+  header('Location: ../modifyProduct.php');
 
-$_SESSION['modifyProduct_success'] = true;
-header("Location: ../modifyProduct.php");
+  //closes database connection
+  $database = null;
+  exit();
+}
 
 
 //closes database connection

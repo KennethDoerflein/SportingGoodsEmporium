@@ -24,6 +24,11 @@ if ($productID == NULL || $productID == FALSE) {
 $query->execute();
 $products = $query->fetchAll();
 $query->closeCursor();
+if (!empty($_SESSION['addCart']) && $_SESSION['addCart'] == 'MissingInput') {
+  $notice = 'There was an error adding to the cart. Please try again.';
+
+  $_SESSION['addCart'] = '';
+}
 ?>
 
 <!doctype html>
@@ -72,9 +77,9 @@ $query->closeCursor();
         </ul>
       </div>
       <form class="d-flex" role="search" method="get" action="./homepage.php">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
-                <button class="btn btn-outline-success me-3" type="submit">Search</button>
-            </form>
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
+        <button class="btn btn-outline-success me-3" type="submit">Search</button>
+      </form>
       <a class="navbar-brand" href="./cart.php">Cart</a>
       <a class="navbar-brand" href="./account.php">Account</a>
       <a class="navbar-brand" href="./scripts/logout.php">Logout</a>
@@ -84,6 +89,13 @@ $query->closeCursor();
   // echo "logged in user email: " . $_SESSION['email'];
   // echo "<br>logged in user account number: " . $_SESSION['account'];
   ?>
+  <center>
+    <h1>
+      <div style='color: red;'><?php if (!empty($notice)) {
+                                  echo $notice;
+                                } ?></div>
+    </h1>
+  </center>
   <div class="container-fluid mx-auto text-center">
     <?php foreach ($products as $product) : ?>
       <?php

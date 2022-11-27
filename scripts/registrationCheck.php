@@ -72,7 +72,7 @@ if ($password != $repassword) {
 	//checks if passwords are the same
 	if ($result) {
 		//redirects to registration page
-		$_SESSION['email_taken'] = true;
+		$_SESSION['passMiss'] = true;
 		header('Location: ../register.php');
 
 		//closes database connection
@@ -110,7 +110,7 @@ if ($query->execute()) {
 	header("Location: ../homepage.php");
 } else {
 	//redirects to registration page if failed
-	$_SESSION['reg_err'] = true;
+	$_SESSION['registration_error'] = true;
 	header('Location: ../register.php');
 }
 

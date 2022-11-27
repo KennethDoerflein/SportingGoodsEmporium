@@ -115,8 +115,8 @@ if ($query->execute()) {
   $_SESSION['addProduct_success'] = true;
   header("Location: ../addProduct.php");
 } else {
-  //redirects to registration page if failed
-  $_SESSION['unknown_err'] = true;
+  //redirects to add product page if failed
+  $_SESSION['missing_input'] = true;
   header('Location: ../addProduct.php');
 }
 

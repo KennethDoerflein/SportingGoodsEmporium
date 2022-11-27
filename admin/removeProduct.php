@@ -1,13 +1,27 @@
 <?php
 session_start();
 if (!isset($_SESSION['logged_in'])) {
-    //if not logged in, redirects user to landing page
-    header('Location: ./adminLogin.php');
+  //if not logged in, redirects user to landing page
+  header('Location: ./adminLogin.php');
 }
 
 if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true)) {
-    //if customer, redirects user to customer homepage
-    header('Location: ../homepage.php');
+  //if customer, redirects user to customer homepage
+  header('Location: ../homepage.php');
+}
+// check notices
+if (!empty($_SESSION['missing_input']) && $_SESSION['missing_input']) {
+  $notice = 'Please Try Again';
+  $_SESSION['missing_input'] = '';
+} else if (!empty($_SESSION['removeProduct_success']) && $_SESSION['removeProduct_success']) {
+  $notice = 'Product Was Removed';
+  $_SESSION['removeProduct_success'] = '';
+} else if (!empty($_SESSION['invalidPass']) && $_SESSION['invalidPass']) {
+  $notice = 'Invalid Password';
+  $_SESSION['invalidPass'] = '';
+} else if (!empty($_SESSION['product_DNE']) && $_SESSION['product_DNE']) {
+  $notice = 'Product Does Not Exist';
+  $_SESSION['product_DNE'] = '';
 }
 ?>
 
@@ -29,15 +43,22 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (is
       <a class="navbar-brand" href="./adminHomepage.php">Home</a>
       <a class="navbar-brand" href="./adminProducts.php">Products</a>
       <form class="d-flex mx-auto" role="search" method="get" action="./adminProducts.php">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
-                <button class="btn btn-outline-success me-3" type="submit">Search</button>
-            </form>
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
+        <button class="btn btn-outline-success me-3" type="submit">Search</button>
+      </form>
       <a class="navbar-brand" href="./adminAccount.php">Account</a>
       <a class="navbar-brand" href="../scripts/logout.php">Logout</a>
     </div>
   </nav>
   <div class="container">
     <h1 class="text-center"><strong>Remove a Product</strong></h1>
+    <center>
+      <h1>
+        <div style='color: red;'><?php if (!empty($notice)) {
+                                    echo $notice;
+                                  } ?></div>
+      </h1>
+    </center>
     <div class="text-center mb-3">Enter the product ID below:</div>
     <form enctype="multipart/form-data" method="POST" class="form-horizontal" action="./adminScripts/removeProductCheck.php">
 

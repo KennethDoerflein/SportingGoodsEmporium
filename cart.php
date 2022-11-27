@@ -20,38 +20,38 @@ $products = $query->fetchAll();
 $query->closeCursor();
 $total = 0.0;
 
-if ($_SESSION['addCart'] == 'added') {
+if (!empty($_SESSION['addCart']) && $_SESSION['addCart'] == 'added') {
   $notice = 'Item Was Added to Your Cart';
-
   $_SESSION['addCart'] = '';
-} else if ($_SESSION['addCart'] == 'failed') {
+
+} else if (!empty($_SESSION['addCart']) && $_SESSION['addCart'] == 'failed') {
   $notice = 'Item was not added to your cart';
-
   $_SESSION['addCart'] = '';
-} else if ($_SESSION['inSuffStock']) {
+
+} else if (!empty($_SESSION['inSuffStock']) && $_SESSION['inSuffStock']) {
   $notice = 'Insufficient Stock, Quantity Updated';
-
   $_SESSION['inSuffStock'] = '';
-} else if ($_SESSION['placeOrder'] == 'success') {
+
+} else if (!empty($_SESSION['placeOrder']) && $_SESSION['placeOrder'] == 'success') {
   $notice = 'Order Received';
-
   $_SESSION['placeOrder'] = '';
-} else if ($_SESSION['itemRemoved']) {
+
+} else if (!empty($_SESSION['itemRemoved']) && $_SESSION['itemRemoved']) {
   $notice = 'Item Was Removed';
-
   $_SESSION['itemRemoved'] = '';
-} else if ($_SESSION['removalErr']) {
+
+} else if (!empty($_SESSION['removalErr']) && $_SESSION['removalErr']) {
   $notice = 'Item Was Not Removed';
-
   $_SESSION['removalErr'] = '';
-} else if ($_SESSION['addCart'] == 'insuffStock') {
+
+} else if (!empty($_SESSION['addCart']) && $_SESSION['addCart'] == 'insuffStock') {
   $notice = 'Insufficient Stock';
-
   $_SESSION['removalErr'] = '';
-} else if ($_SESSION['checkout_error']) {
-  $notice = 'An Error Occurred, Please Try Again';
 
+} else if (!empty($_SESSION['checkout_error']) && $_SESSION['checkout_error']) {
+  $notice = 'An Error Occurred, Please Try Again';
   $_SESSION['checkout_error'] = '';
+
 }
 ?>
 
