@@ -11,18 +11,23 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title>SGE</title>
 </head>
+
 <body>
-<nav class="navbar navbar-dark bg-dark">
-  <div class="container-fluid">
-      <a class="navbar-brand mx-auto" href="./index.php">Sporting Goods Emporium</a>
-  </div>
-</nav>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand mx-auto" href="./index.php">Sporting Goods Emporium</a>
+        </div>
+    </nav>
     <div class="container-fluid bg-default mt-3">
         <div class="text-center p-2">
             <h1>Welcome to Sporting Goods Emporium</h1>
-            <a href="./login.php"><button type="button" class="btn btn-primary">Login</button></a>
-            <a href="./register.php"><button type="button" class="btn btn-success">Create Account</button></a>
+            <img class="rounded img-fluid" style="max-width: 70%;" src="./assets/henningsvar-football-soccer-stadium-lofoten-norway-2.jpg">
+            <div>
+                <a href="./login.php"><button type="button" class="btn btn-primary mt-3">Login</button></a>
+                <a href="./register.php"><button type="button" class="btn btn-success mt-3">Create Account</button></a>
+            </div>
         </div>
     </div>
 </body>
+
 </html>
