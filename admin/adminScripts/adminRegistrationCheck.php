@@ -78,7 +78,7 @@ if ($password != $repassword) {
   //checks if passwords are the same
   if ($result) {
     //redirects to registration page
-    $_SESSION['email_taken'] = true;
+    $_SESSION['passMiss'] = true;
     header('Location: ../adminRegister.php');
 
     //closes database connection
@@ -106,10 +106,10 @@ $query->bindParam(':salary', $salary);
 if ($query->execute()) {
   //redirects to homepage if successful
   $_SESSION['reg_success'] = true;
-  header("Location: ../adminHomepage.php");
+  header("Location: ../adminRegister.php");
 } else {
   //redirects to registration page if failed
-  $_SESSION['reg_err'] = true;
+  $_SESSION['registration_error'] = true;
   header('Location: ../adminRegister.php');
 }
 

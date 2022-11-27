@@ -61,7 +61,7 @@ $products = $query->fetchAll();
     echo '<p class="card-text">Price: $' . $product['price'] . '</p>';
     echo '<p class="card-text">Product ID: ' . $product['productID'] . '</p>';
     echo '<p class="card-text">Quantity: ' . $product['quantity'] . '</p>';
-    echo '<a href="#" class="btn btn-dark">View Product</a>';
+    echo '<a href="./adminProductView.php?productID=' . $product['productID'] . '" class="btn btn-dark">View Product</a>';
     echo '</div>';
     echo '</div>';
     echo '</div>';

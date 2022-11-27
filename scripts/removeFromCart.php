@@ -32,11 +32,11 @@ $query = $db->prepare("DELETE FROM cart WHERE productID = :productID AND account
   $query->bindValue(':productID', $productID);
 
 if ($query->execute()) {
-  $_SESSION['itemRemoved'] = 'true';
+  $_SESSION['itemRemoved'] = true;
   header('Location: ../cart.php');
   exit();
 } else {
-  $_SESSION['removalErr'] = 'true';
+  $_SESSION['removalErr'] = true;
   //header('Location: ../cart.php');
   exit();
 }

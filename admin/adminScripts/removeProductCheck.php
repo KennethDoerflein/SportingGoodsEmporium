@@ -45,7 +45,6 @@ if (password_verify($admin_password, $result['password'])) {
   $query = $db->prepare("SELECT image FROM product WHERE productID = :productID");
   $query->bindParam(':productID', $productID);
 
-  //gets any elements from database that has matching email
   $query->execute();
   $result = $query->fetch();
   unlink("../../" . $result['image']);
@@ -53,16 +52,20 @@ if (password_verify($admin_password, $result['password'])) {
   $query = $db->prepare("DELETE FROM product WHERE productID = :productID");
   $query->bindParam(':productID', $productID);
   $query->execute();
-  $query = $db->prepare("DELETE FROM cart WHERE productID = :productID");
-  $query->bindParam(':productID', $productID);
+  $remove = $db->prepare("DELETE FROM cart WHERE productID = :productID");
+  $remove->bindParam(':productID', $productID);
+  $remove->execute();
+} else {
+  //redirects to remove page if failed
+  $_SESSION['invalidPass'] = true;
+  header('Location: ../removeProduct.php');
 }
-
-if ($query->execute()) {
-  //redirects to add product page if successful
+if ($query->rowCount() > 0) {
+  //redirects to remove product page if successful
   $_SESSION['removeProduct_success'] = true;
   header("Location: ../removeProduct.php");
 } else {
-  //redirects to registration page if failed
+  //redirects to remove page if failed
   $_SESSION['product_DNE'] = true;
   header('Location: ../removeProduct.php');
 }

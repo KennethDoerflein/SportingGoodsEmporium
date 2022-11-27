@@ -19,6 +19,40 @@ $query->execute();
 $products = $query->fetchAll();
 $query->closeCursor();
 $total = 0.0;
+
+if (!empty($_SESSION['addCart']) && $_SESSION['addCart'] == 'added') {
+  $notice = 'Item Was Added to Your Cart';
+  $_SESSION['addCart'] = '';
+
+} else if (!empty($_SESSION['addCart']) && $_SESSION['addCart'] == 'failed') {
+  $notice = 'Item was not added to your cart';
+  $_SESSION['addCart'] = '';
+
+} else if (!empty($_SESSION['inSuffStock']) && $_SESSION['inSuffStock']) {
+  $notice = 'Insufficient Stock, Quantity Updated';
+  $_SESSION['inSuffStock'] = '';
+
+} else if (!empty($_SESSION['placeOrder']) && $_SESSION['placeOrder'] == 'success') {
+  $notice = 'Order Received';
+  $_SESSION['placeOrder'] = '';
+
+} else if (!empty($_SESSION['itemRemoved']) && $_SESSION['itemRemoved']) {
+  $notice = 'Item Was Removed';
+  $_SESSION['itemRemoved'] = '';
+
+} else if (!empty($_SESSION['removalErr']) && $_SESSION['removalErr']) {
+  $notice = 'Item Was Not Removed';
+  $_SESSION['removalErr'] = '';
+
+} else if (!empty($_SESSION['addCart']) && $_SESSION['addCart'] == 'insuffStock') {
+  $notice = 'Insufficient Stock';
+  $_SESSION['removalErr'] = '';
+
+} else if (!empty($_SESSION['checkout_error']) && $_SESSION['checkout_error']) {
+  $notice = 'An Error Occurred, Please Try Again';
+  $_SESSION['checkout_error'] = '';
+
+}
 ?>
 
 <!doctype html>
@@ -67,9 +101,9 @@ $total = 0.0;
         </ul>
       </div>
       <form class="d-flex" role="search" method="get" action="./homepage.php">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
-                <button class="btn btn-outline-success me-3" type="submit">Search</button>
-            </form>
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
+        <button class="btn btn-outline-success me-3" type="submit">Search</button>
+      </form>
       <a class="navbar-brand" href="./cart.php">Cart</a>
       <a class="navbar-brand" href="./account.php">Account</a>
       <a class="navbar-brand" href="./scripts/logout.php">Logout</a>
@@ -77,7 +111,14 @@ $total = 0.0;
   </nav>
 
   <table class="table text-center align-middle mx-auto container-fluid" style="max-width: 90%;">
-  <h3 class="text-center"><u>Cart</u></h3>
+    <center>
+      <h1>
+        <div style='color: red;'><?php if (!empty($notice)) {
+                                    echo $notice;
+                                  } ?></div>
+      </h1>
+    </center>
+    <h3 class="text-center"><u>Cart</u></h3>
     <thead>
       <tr>
         <th scope="col"></th>
@@ -108,9 +149,14 @@ $total = 0.0;
     </tbody>
   </table>
   <div class="mx-auto container-fluid text-center">
-    <h4><?php if($query->rowCount() != 0){ echo 'Total: $'.$total; }else{echo 'Shopping Cart Is Empty';}?></h4>
-    <a href="./checkoutPage.php" class="btn btn-dark btn-lg <?php if($query->rowCount() == 0){
-            echo 'disabled';} ?>">Checkout</a>
+    <h4><?php if ($query->rowCount() != 0) {
+          echo 'Total: $' . $total;
+        } else {
+          echo 'Shopping Cart Is Empty';
+        } ?></h4>
+    <a href="./checkoutPage.php" class="btn btn-dark btn-lg <?php if ($query->rowCount() == 0) {
+                                                              echo 'disabled';
+                                                            } ?>">Checkout</a>
   </div>
 
   <div class="mb-5"></div>
