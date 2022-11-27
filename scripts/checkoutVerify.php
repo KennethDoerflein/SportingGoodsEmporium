@@ -57,6 +57,26 @@ $query->bindValue(':accountNumber', $_SESSION['account']);
 $query->execute();
 $products = $query->fetchAll();
 $query->closeCursor();
+$insuffStock = false;
+foreach ($products as $cartItems) :
+  if ($cartItems['inStock'] < $cartItems['quantity']) {
+    $insuffStock = true;
+    $query = $db->prepare("UPDATE cart SET quantity = :inStock WHERE productID = :productID AND accountNumber = :accountNumber");
+    $query->bindParam(':accountNumber', $_SESSION['account']);
+    $query->bindParam(':productID', $cartItems['productID']);
+    $query->bindParam(':inStock', $cartItems['inStock']);
+    $query->execute();
+  }
+endforeach;
+
+if ($insuffStock){
+      //redirects to cart page if failed
+      $_SESSION['inSuffStock'] = true;
+      header('Location: ../cart.php');
+      //closes database connection
+      $database = null;
+      exit();
+}
 
 foreach ($products as $product) :
   //prepares insert statement
@@ -71,6 +91,7 @@ foreach ($products as $product) :
   $query->bindParam(':addressBilling', $addressBilling);
   $query->bindParam(':addressShipping', $addressShipping);
   $query->execute();
+
   do {
     $id = mt_rand(100000, 500000);
     $query = $db->prepare("SELECT * FROM orders WHERE id = :id");
@@ -89,13 +110,16 @@ $query->bindParam(':accountNumber', $_SESSION['account']);
 
 //checks if insert was successful
 if ($query->execute()) {
-  //redirects to homepage if successful
-  $_SESSION['checkout_success'] = true;
+  //redirects to cart if successful
+  $_SESSION['placeOrder'] = 'success';
   header("Location: ../cart.php");
 } else {
-  //redirects to registration page if failed
+  //redirects to cart page if failed
   $_SESSION['checkout_err'] = true;
   header('Location: ../cart.php');
+  //closes database connection
+  $database = null;
+  exit();
 }
 
 //closes database connection
