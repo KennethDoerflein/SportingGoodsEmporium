@@ -11,7 +11,13 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (is
   header('Location: ../homepage.php');
 }
 
-$query = $db->prepare("SELECT DISTINCT orderNumber,purchaseDate FROM ORDERS ORDER BY purchaseDate DESC");
+$orderNum = filter_input(INPUT_GET, 'orderNum');
+if ($orderNum != NULL || $orderNum != FALSE) {
+  $query = $db->prepare("SELECT DISTINCT orderNumber,purchaseDate FROM ORDERS where orderNumber = :orderNum");
+  $query->bindValue(':orderNum', $orderNum);
+} else {
+  $query = $db->prepare("SELECT DISTINCT orderNumber,purchaseDate FROM ORDERS ORDER BY purchaseDate DESC");
+}
 
 $query->execute();
 $products = $query->fetchAll();
@@ -51,6 +57,15 @@ $query->closeCursor();
   ?>
   <table class="table text-center align-middle mx-auto container-fluid" style="max-width: 90%;">
     <h3 class="text-center"><u>Previous Orders</u></h3>
+    <form class="d-flex mx-auto" role="search" method="get" action="./adminOrderList.php">
+      <div class="input-group mx-auto" style="max-width: 300px;">
+        <input type="search" class="form-control rounded" placeholder="Search" name="orderNum" />
+        <button type="submit" class="btn btn-outline-primary">search</button>
+      </div>
+    </form>
+    <?php if ($query->rowCount() == 0) {
+      echo '<h3><div class="mt-2 text-center" >Order Not Found</div></h3>';
+    } ?>
     <thead>
       <tr>
         <th scope="col">Order #</th>
@@ -61,6 +76,7 @@ $query->closeCursor();
     <tbody>
       <?php foreach ($products as $product) : ?>
         <?php
+
         echo '
       <tr>
       <td>' . $product['orderNumber'] . '</td>
