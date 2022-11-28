@@ -287,17 +287,17 @@ $total = 0.0;
             </div>
             <div class="col-md-6 mb-3">
               <label for="cc-number">Credit card number</label>
-              <input type="text" class="form-control" name="cc-number" placeholder="" required>
+              <input type="tel" pattern="[0-9\s]{13,19}" class="form-control" name="cc-number" maxlength="19" placeholder="" required>
             </div>
           </div>
           <div class="row">
             <div class="col-md-3 mb-3">
               <label for="cc-expiration">Expiration</label>
-              <input type="text" class="form-control" name="cc-expiration" placeholder="" required>
+              <input type="text" class="form-control" name="cc-expiration" placeholder="12/12" pattern="(?:0[1-9]|1[0-2])/[0-9]{2}" maxlength="5" required>
             </div>
             <div class="col-md-3 mb-3">
-              <label for="cc-expiration">CVV</label>
-              <input type="text" class="form-control" name="cc-cvv" placeholder="" required>
+              <label for="cc-cvv">CVV</label>
+              <input type="tel" pattern="[0-9\s]{3,4}" class="form-control" name="cc-cvv" maxlength="4" placeholder="" required>
             </div>
           </div>
           <hr class="mb-4">
