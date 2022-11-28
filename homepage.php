@@ -88,7 +88,7 @@ $query->closeCursor();
     // echo "logged in user email: " . $_SESSION['email'];
     // echo "<br>logged in user account number: " . $_SESSION['account'];
     ?>
-    <div class="mx-auto container-fluid row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 g-4 text-center">
+    <div class="mx-auto container-fluid row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 g-4 text-center">
         <?php foreach ($products as $product) : ?>
             <?php
             echo '<div class="col">';
