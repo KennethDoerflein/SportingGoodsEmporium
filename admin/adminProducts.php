@@ -50,7 +50,7 @@ $products = $query->fetchAll();
     <a class="navbar-brand" href="../scripts/logout.php">Logout</a>
   </div>
 </nav>
-<div class="mx-auto container-fluid row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 g-4 text-center">
+<div class="mx-auto container-fluid row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-xxl-4 g-4 text-center">
   <?php foreach ($products as $product) : ?>
     <?php
     echo '<div class="col">';
