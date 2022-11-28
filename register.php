@@ -44,7 +44,7 @@ if (!empty($_SESSION['registration_error']) && $_SESSION['registration_error']) 
             <div class=" form-group row mb-2">
                 <label class="col-form-label col-sm-2" for="email">Email:</label>
                 <div class="col-sm-10">
-                    <input required type="email" class="form-control" id="email" placeholder="example@example.com" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                    <input required type="email" class="form-control" id="email" placeholder="example@example.com" name="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
                 </div>
             </div>
 
