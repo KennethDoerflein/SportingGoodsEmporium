@@ -3,6 +3,7 @@
 To Do
 - [x] Finish all major functionality
 - - [x] maybe add search to admin order list
+- - [ ] sanitize input
 - [x] Add picture to landing page
 - [ ] add comments
 - [x] Make sure all pages have titles and check headers
