@@ -52,7 +52,7 @@ if (!empty($_SESSION['registration_error']) && $_SESSION['registration_error']) 
     </div>
   </nav>
   <div class="container">
-    <h1 class="text-center"><strong>Admin Registration</strong></h1>
+    <h1 class="text-center mt-3"><strong>Admin Registration</strong></h1>
     <center>
       <h1>
         <div style='color: red;'><?php if (!empty($notice)) {

@@ -87,7 +87,8 @@ if (!empty($_SESSION['addCart']) && $_SESSION['addCart'] == 'MissingInput') {
       echo '<div class="mt-4">';
       echo '<p><strong>Product ID: </strong>' . $product['productID'] . '</p>';
       echo '<h4><strong>' . $product['name'] . '</strong></h4>';
-      echo '<p class="mt-3">$' . $product['price'] . '</p>';
+      echo '<p class="mt-3"><strong>Price: </strong>$' . $product['price'] . '</p>';
+      echo '<p> <strong>Description: </strong>' . $product['category'] . '</p>';
       echo '<p> <strong>Description: </strong>' . $product['description'] . '</p>';
       echo '<p><strong>Manufacturer: </strong>' . $product['manufacturer'] . '</p>';
       echo '<p><strong>Quantity: </strong>' . $product['quantity'] . '</p>';
