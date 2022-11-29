@@ -93,11 +93,11 @@ $query->closeCursor();
             <?php
             echo '<div class="col">';
             echo '<div class="border border-dark border-3 mx-auto card h-100 text-center" style="width: 20rem;">';
-            echo '<img style="max-height: 450px;" src="./' . $product['image'] . '" class="card-img-top">';
-            echo '<div class="card-body">';
+            echo '<img style="max-height: 450px;" src="./' . $product['image'] . '" class="card-img-top mt-auto">';
+            echo '<div class="card-footer mt-auto d-flex flex-column">';
             echo '<strong class="card-title">' . $product['name'] . '</strong>';
             echo '<p class="card-text">$' . $product['price'] . '</p>';
-            echo '<a href="./productView.php?productID=' . $product['productID'] . '" class="btn btn-dark">View Product</a>';
+            echo '<a href="./productView.php?productID=' . $product['productID'] . '" class="btn btn-dark mt-auto">View Product</a>';
             echo '</div>';
             echo '</div>';
             echo '</div>';

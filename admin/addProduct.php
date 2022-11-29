@@ -55,7 +55,7 @@ if (!empty($_SESSION['missing_input']) && $_SESSION['missing_input']) {
     </div>
   </nav>
   <div class="container">
-    <h1 class="text-center"><strong>Add a Product</strong></h1>
+    <h1 class="text-center mt-3"><strong>Add a Product</strong></h1>
     <center>
       <h1>
         <div style='color: red;'><?php if (!empty($notice)) {
