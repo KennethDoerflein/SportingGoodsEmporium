@@ -49,7 +49,7 @@ $total = 0.0;
     </div>
   </nav>
   <table class="table text-center align-middle mx-auto container-fluid" style="max-width: 90%;">
-    <h3 class="text-center"><u>Order # <?php echo $orderNumber ?></u></h3>
+    <h3 class="text-center mt-3"><u>Order # <?php echo $orderNumber ?></u></h3>
     <thead>
       <tr>
         <th scope="col"></th>

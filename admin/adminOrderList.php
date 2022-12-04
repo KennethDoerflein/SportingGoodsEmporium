@@ -56,7 +56,7 @@ $query->closeCursor();
   // echo "<br>logged in user account number: " . $_SESSION['account'];
   ?>
   <table class="table text-center align-middle mx-auto container-fluid" style="max-width: 90%;">
-    <h3 class="text-center"><u>Previous Orders</u></h3>
+    <h3 class="text-center mt-3"><u>Previous Orders</u></h3>
     <form class="d-flex mx-auto" role="search" method="get" action="./adminOrderList.php">
       <div class="input-group mx-auto" style="max-width: 300px;">
         <input type="search" class="form-control rounded" placeholder="Search" name="orderNum" />
