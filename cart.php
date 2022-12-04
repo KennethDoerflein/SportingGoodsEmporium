@@ -1,6 +1,7 @@
 <?php
 //includes database connection
 require_once './db_connect.php';
+//get session variables
 session_start();
 
 if (!isset($_SESSION['logged_in'])) {
@@ -12,9 +13,12 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'admin') && (isset
   //if admin, redirects user to admin homepage
   header('Location: ./admin/adminHomepage.php');
 }
+
+//prepare query for database
 $query = $db->prepare("SELECT PRODUCT.productID, PRODUCT.price, PRODUCT.name, PRODUCT.image, CART.quantity, CART.dateAdded FROM CART INNER JOIN PRODUCT ON PRODUCT.productID = CART.productID WHERE CART.accountNumber = :accountNumber ORDER BY dateAdded DESC");
 $query->bindValue(':accountNumber', $_SESSION['account']);
 
+//query database
 $query->execute();
 $products = $query->fetchAll();
 $query->closeCursor();
@@ -23,35 +27,27 @@ $total = 0.0;
 if (!empty($_SESSION['addCart']) && $_SESSION['addCart'] == 'added') {
   $notice = 'Item Was Added to Your Cart';
   $_SESSION['addCart'] = '';
-
 } else if (!empty($_SESSION['addCart']) && $_SESSION['addCart'] == 'failed') {
   $notice = 'Item was not added to your cart';
   $_SESSION['addCart'] = '';
-
 } else if (!empty($_SESSION['inSuffStock']) && $_SESSION['inSuffStock']) {
   $notice = 'Insufficient Stock, Quantity Updated';
   $_SESSION['inSuffStock'] = '';
-
 } else if (!empty($_SESSION['placeOrder']) && $_SESSION['placeOrder'] == 'success') {
   $notice = 'Order Received';
   $_SESSION['placeOrder'] = '';
-
 } else if (!empty($_SESSION['itemRemoved']) && $_SESSION['itemRemoved']) {
   $notice = 'Item Was Removed';
   $_SESSION['itemRemoved'] = '';
-
 } else if (!empty($_SESSION['removalErr']) && $_SESSION['removalErr']) {
   $notice = 'Item Was Not Removed';
   $_SESSION['removalErr'] = '';
-
 } else if (!empty($_SESSION['addCart']) && $_SESSION['addCart'] == 'insuffStock') {
   $notice = 'Insufficient Stock';
   $_SESSION['removalErr'] = '';
-
 } else if (!empty($_SESSION['checkout_error']) && $_SESSION['checkout_error']) {
   $notice = 'An Error Occurred, Please Try Again';
   $_SESSION['checkout_error'] = '';
-
 }
 ?>
 

@@ -1,9 +1,12 @@
 <?php
+//start session to get set variables
 session_start();
 //if already logged in go to homepage
 if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true)) {
     header('Location: ./homepage.php');
 }
+
+//check session variables and display messages if needed
 if (!empty($_SESSION['login_error']) && $_SESSION['login_error']) {
     $notice = 'Please Try Again';
     $_SESSION['login_error'] = '';

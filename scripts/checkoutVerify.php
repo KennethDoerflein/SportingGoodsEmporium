@@ -5,11 +5,11 @@ require_once '../db_connect.php';
 //includes session info
 session_start();
 
-
+//get date and time
 date_default_timezone_set("America/New_York");
 $date = date("Y/m/d H:i:s");
 
-//takes input and assigns them to variables
+//takes form input and assigns them to variables
 $firstNameBilling = trim($_POST['firstNameBilling']);
 $lastNameBilling = trim($_POST['lastNameBilling']);
 $addressBilling = trim($_POST['addressBilling']) . ' ' . trim($_POST['cityBilling']) . ' ' .  trim($_POST['stateBilling']) . ' ' . ($_POST['zipBilling']);
@@ -24,7 +24,7 @@ $ccCvv = trim($_POST['cc-cvv']);
 //checks if all required values are not empty
 if (empty($firstNameBilling) || empty($lastNameBilling) || empty($addressBilling) || empty($firstNameShipping) || empty($lastNameShipping) || empty($addressShipping) || empty($ccName) || empty($ccExpiration) || empty($ccCvv)) {
 
-  //redirects to registration page if all values are not input
+  //redirects to cart page if all values are not input
   $_SESSION['checkout_error'] = true;
   header('Location: ../cart.php');
 
@@ -51,13 +51,15 @@ do {
   $result = $query->fetchAll();
 } while ($result);
 
+//prepare query
 $query = $db->prepare("SELECT CART.productID, PRODUCT.price, CART.quantity, PRODUCT.quantity as inStock FROM CART INNER JOIN PRODUCT ON PRODUCT.productID = CART.productID WHERE CART.accountNumber = :accountNumber ORDER BY dateAdded DESC");
 $query->bindValue(':accountNumber', $_SESSION['account']);
-
+//execute query
 $query->execute();
 $products = $query->fetchAll();
 $query->closeCursor();
 $insuffStock = false;
+// check if we have enough of each item in the cart
 foreach ($products as $cartItems) :
   if ($cartItems['inStock'] < $cartItems['quantity']) {
     $insuffStock = true;
@@ -69,15 +71,15 @@ foreach ($products as $cartItems) :
   }
 endforeach;
 
-if ($insuffStock){
-      //redirects to cart page if failed
-      $_SESSION['inSuffStock'] = true;
-      header('Location: ../cart.php');
-      //closes database connection
-      $database = null;
-      exit();
+if ($insuffStock) {
+  //redirects to cart page if failed
+  $_SESSION['inSuffStock'] = true;
+  header('Location: ../cart.php');
+  //closes database connection
+  $database = null;
+  exit();
 }
-
+// insert each item into order table
 foreach ($products as $product) :
   //prepares insert statement
   $query = $db->prepare("INSERT INTO orders VALUES (:id, :accountNumber, :orderID, :productID, :price, :quantity, :date, :addressShipping, :addressBilling)");
@@ -92,6 +94,7 @@ foreach ($products as $product) :
   $query->bindParam(':addressShipping', $addressShipping);
   $query->execute();
 
+  //make order id and check if taken
   do {
     $id = mt_rand(100000, 500000);
     $query = $db->prepare("SELECT * FROM orders WHERE id = :id");
@@ -104,7 +107,7 @@ foreach ($products as $product) :
   $query->bindParam(':quantity', $product['quantity']);
   $query->execute();
 endforeach;
-
+//delete items from user cart
 $query = $db->prepare("DELETE FROM cart WHERE accountNumber = :accountNumber");
 $query->bindParam(':accountNumber', $_SESSION['account']);
 

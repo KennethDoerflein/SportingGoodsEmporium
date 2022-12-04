@@ -1,6 +1,7 @@
 <?php
 //includes database connection
 require_once './db_connect.php';
+//start session
 session_start();
 
 if (!isset($_SESSION['logged_in'])) {
@@ -12,9 +13,11 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'admin') && (isset
   //if admin, redirects user to admin homepage
   header('Location: ./admin/adminHomepage.php');
 }
+//prepare query
 $query = $db->prepare("SELECT DISTINCT orderNumber,purchaseDate FROM ORDERS WHERE accountNumber = :accountNumber ORDER BY purchaseDate DESC");
 $query->bindValue(':accountNumber', $_SESSION['account']);
 
+//query database and fetch results
 $query->execute();
 $products = $query->fetchAll();
 $query->closeCursor();

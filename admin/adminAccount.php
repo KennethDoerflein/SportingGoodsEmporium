@@ -1,6 +1,9 @@
 <?php
+//connect to database
 require_once '../db_connect.php';
+//get session data
 session_start();
+
 if (!isset($_SESSION['logged_in'])) {
   //if not logged in, redirects user to landing page
   header('Location: ./adminLogin.php');
@@ -10,10 +13,10 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (is
   //if customer, redirects user to customer homepage
   header('Location: ../homepage.php');
 }
-
+//prepare query
 $query = $db->prepare("SELECT * FROM employee where employeeID = :employeeID");
 $query->bindValue(':employeeID', $_SESSION['account']);
-
+//execute query
 $query->execute();
 $accountInfo = $query->fetch();
 $query->closeCursor();
@@ -39,9 +42,9 @@ $query->closeCursor();
       <a class="navbar-brand" href="./adminHomepage.php">Home</a>
       <a class="navbar-brand" href="adminProducts.php">Products</a>
       <form class="d-flex mx-auto" role="search" method="get" action="./adminProducts.php">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
-                <button class="btn btn-outline-success me-3" type="submit">Search</button>
-            </form>
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
+        <button class="btn btn-outline-success me-3" type="submit">Search</button>
+      </form>
       <a class="navbar-brand" href="./adminAccount.php">Account</a>
       <a class="navbar-brand" href="../scripts/logout.php">Logout</a>
     </div>
@@ -51,22 +54,22 @@ $query->closeCursor();
   // echo "<br>logged in user account number: " . $_SESSION['account'];
   ?>
   <div class="mx-auto container-fluid text-center">
-  <?php if ($_SESSION['userType'] == 'customer') {
-    echo '<a href="./orders.php" class="btn btn-dark disabled">View Orders</a>';
-  }
-  echo '<div class="mb-5"></div>';
-  echo '<hr>';
-  echo '<div class="mb-5"></div>';
-  echo '<h3><u>Account Information</u></h3>';
-  echo 'Email: ' . $accountInfo['email'];
-  echo '<div class="mb-2"></div>';
-  echo 'First Name: ' . $accountInfo['Fname'];
-  echo '<div class="mb-2"></div>';
-  echo 'Last Name: ' . $accountInfo['Lname'];
-  echo '<div class="mb-2"></div>';
-  echo 'Phone Number: ' . $accountInfo['phoneNumber'];
-  echo '<div class="mb-2"></div>';
-  ?>
+    <?php if ($_SESSION['userType'] == 'customer') {
+      echo '<a href="./orders.php" class="btn btn-dark disabled">View Orders</a>';
+    }
+    echo '<div class="mb-5"></div>';
+    echo '<hr>';
+    echo '<div class="mb-5"></div>';
+    echo '<h3><u>Account Information</u></h3>';
+    echo 'Email: ' . $accountInfo['email'];
+    echo '<div class="mb-2"></div>';
+    echo 'First Name: ' . $accountInfo['Fname'];
+    echo '<div class="mb-2"></div>';
+    echo 'Last Name: ' . $accountInfo['Lname'];
+    echo '<div class="mb-2"></div>';
+    echo 'Phone Number: ' . $accountInfo['phoneNumber'];
+    echo '<div class="mb-2"></div>';
+    ?>
 
   </div>
 

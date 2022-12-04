@@ -1,10 +1,11 @@
 <?php
 //includes database connection
 require_once '../db_connect.php';
+//get session data
 session_start();
 
 if (!isset($_SESSION['logged_in'])) {
-  //if not logged in, redirects user to landing page
+  //if not logged in, redirects user to login page
   header('Location: ./adminLogin.php');
 }
 
@@ -13,6 +14,7 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (is
   header('Location: ../homepage.php');
 }
 
+//get search request and prepare query
 $searchReq = filter_input(INPUT_GET, 'searchQuery');
 if ($searchReq != NULL || $searchReq != FALSE) {
   $query = $db->prepare("SELECT * FROM PRODUCT WHERE name like :search OR description like :search OR manufacturer like :search OR category like :search ORDER BY category DESC");
@@ -20,6 +22,7 @@ if ($searchReq != NULL || $searchReq != FALSE) {
 } else {
   $query = $db->prepare("SELECT * FROM product");
 }
+//run query
 $query->execute();
 $products = $query->fetchAll();
 ?>

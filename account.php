@@ -12,9 +12,12 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'admin') && (isset
   //if admin, redirects user to admin homepage
   header('Location: ./admin/adminHomepage.php');
 }
+
+//prepare query for database
 $query = $db->prepare("SELECT * FROM customer where accountNumber = :accountNumber");
 $query->bindValue(':accountNumber', $_SESSION['account']);
 
+//query database
 $query->execute();
 $accountInfo = $query->fetch();
 $query->closeCursor();
@@ -66,9 +69,9 @@ $query->closeCursor();
         </ul>
       </div>
       <form class="d-flex" role="search" method="get" action="./homepage.php">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
-                <button class="btn btn-outline-success me-3" type="submit">Search</button>
-            </form>
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
+        <button class="btn btn-outline-success me-3" type="submit">Search</button>
+      </form>
       <a class="navbar-brand" href="./cart.php">Cart</a>
       <a class="navbar-brand" href="./account.php">Account</a>
       <a class="navbar-brand" href="./scripts/logout.php">Logout</a>
@@ -77,20 +80,20 @@ $query->closeCursor();
   <div class="mx-auto container-fluid text-center">
     <?php if ($_SESSION['userType'] == 'customer') {
       echo '<a href="./orderList.php" class="btn btn-dark">View Orders</a>';
-    } 
+    }
     echo '<div class="mb-5"></div>';
     echo '<hr>';
     echo '<div class="mb-5"></div>';
     echo '<h3><u>Account Information</u></h3>';
-    echo 'Email: '.$accountInfo['email'];
+    echo 'Email: ' . $accountInfo['email'];
     echo '<div class="mb-2"></div>';
-    echo 'First Name: '.$accountInfo['Fname'];
+    echo 'First Name: ' . $accountInfo['Fname'];
     echo '<div class="mb-2"></div>';
-    echo 'Last Name: '.$accountInfo['Lname'];
+    echo 'Last Name: ' . $accountInfo['Lname'];
     echo '<div class="mb-2"></div>';
-    echo 'Address: '.$accountInfo['address'];
+    echo 'Address: ' . $accountInfo['address'];
     echo '<div class="mb-2"></div>';
-    echo 'Phone Number: '.$accountInfo['phoneNumber'];
+    echo 'Phone Number: ' . $accountInfo['phoneNumber'];
     echo '<div class="mb-2"></div>';
     ?>
 

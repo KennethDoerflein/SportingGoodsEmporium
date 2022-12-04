@@ -1,6 +1,7 @@
 <?php
 //includes database connection
 require_once './db_connect.php';
+//get session data
 session_start();
 
 if (!isset($_SESSION['logged_in'])) {
@@ -13,10 +14,12 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'admin') && (isset
   header('Location: ./admin/adminHomepage.php');
 }
 
+//get order id and prepare to query database
 $orderNumber = filter_input(INPUT_GET, 'orderNumber');
 $query = $db->prepare("SELECT PRODUCT.productID, ORDERS.price, ORDERS.shippingAddress, ORDERS.billingAddress, PRODUCT.name, PRODUCT.image, ORDERS.quantity FROM ORDERS INNER JOIN PRODUCT ON PRODUCT.productID = ORDERS.productID WHERE ORDERS.orderNumber = :orderNumber");
 $query->bindValue(':orderNumber', $orderNumber);
 
+//query database and fetch results
 $query->execute();
 $products = $query->fetchAll();
 $query->closeCursor();
@@ -110,7 +113,7 @@ $total = 0.0;
           echo 'Order Total: $' . $total;
           echo '<br><br><u>Shipping Address</u><br>' . $product['shippingAddress'];
           echo '<br><br><u>Billing Address</u><br>' . $product['billingAddress'];
-        }?></h4>
+        } ?></h4>
   </div>
 
   <div class="mb-5"></div>

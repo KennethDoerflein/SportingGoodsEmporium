@@ -1,6 +1,7 @@
 <?php
 //includes database connection
 require_once './db_connect.php';
+//start session
 session_start();
 
 if (!isset($_SESSION['logged_in'])) {
@@ -13,6 +14,7 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'admin') && (isset
   header('Location: ./admin/adminHomepage.php');
 }
 
+//get product id and prepare to query database
 $productID = filter_input(INPUT_GET, 'productID');
 if ($productID == NULL || $productID == FALSE) {
   header('Location: ./homepage.php');
@@ -20,10 +22,12 @@ if ($productID == NULL || $productID == FALSE) {
   $query = $db->prepare("SELECT * FROM product where productID = :productID");
   $query->bindValue(':productID', $productID);
 }
-
+//query database and fetch results
 $query->execute();
 $products = $query->fetchAll();
 $query->closeCursor();
+
+//check for session for errors and display messages if needed
 if (!empty($_SESSION['addCart']) && $_SESSION['addCart'] == 'MissingInput') {
   $notice = 'There was an error adding to the cart. Please try again.';
 

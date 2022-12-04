@@ -1,6 +1,7 @@
 <?php
 //includes database connection
 require_once './db_connect.php';
+//get session data
 session_start();
 
 if (!isset($_SESSION['logged_in'])) {
@@ -13,8 +14,11 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'admin') && (isset
     header('Location: ./admin/adminHomepage.php');
 }
 
+//get category id or search query
 $category_id = filter_input(INPUT_GET, 'category_id');
 $searchReq = filter_input(INPUT_GET, 'searchQuery');
+
+//prepare query based on input received
 if ($searchReq != NULL || $searchReq != FALSE) {
     $query = $db->prepare("SELECT * FROM PRODUCT WHERE name like :search OR description like :search OR manufacturer like :search OR category like :search ORDER BY category DESC");
     $query->bindValue(':search', "%" . $searchReq . "%");
@@ -25,6 +29,7 @@ if ($searchReq != NULL || $searchReq != FALSE) {
     $query->bindValue(':category', $category_id);
 }
 
+//query database
 $query->execute();
 $products = $query->fetchAll();
 $query->closeCursor();

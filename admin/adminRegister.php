@@ -1,7 +1,8 @@
 <?php
+//get session data
 session_start();
 if (!isset($_SESSION['logged_in'])) {
-  //if not logged in, redirects user to landing page
+  //if not logged in, redirects admin to login page
   header('Location: ./adminLogin.php');
 }
 

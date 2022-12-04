@@ -1,6 +1,8 @@
 <?php
+//start php session
 session_start();
-// check notices
+
+//check session variables and display messages if needed
 if (!empty($_SESSION['registration_error']) && $_SESSION['registration_error']) {
     $notice = 'Please Try Again';
     $_SESSION['registration_error'] = '';

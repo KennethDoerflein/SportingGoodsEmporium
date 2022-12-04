@@ -1,5 +1,7 @@
 <?php
+//connect to database
 require_once '../db_connect.php';
+//get session data
 session_start();
 if (!isset($_SESSION['logged_in'])) {
   //if not logged in, redirects user to landing page
@@ -10,11 +12,11 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (is
   //if customer, redirects user to customer homepage
   header('Location: ../homepage.php');
 }
-
+//get order number and prepare query
 $orderNumber = filter_input(INPUT_GET, 'orderNumber');
 $query = $db->prepare("SELECT PRODUCT.productID, ORDERS.price, ORDERS.shippingAddress, ORDERS.billingAddress, PRODUCT.name, PRODUCT.image, ORDERS.quantity FROM ORDERS INNER JOIN PRODUCT ON PRODUCT.productID = ORDERS.productID WHERE ORDERS.orderNumber = :orderNumber");
 $query->bindValue(':orderNumber', $orderNumber);
-
+//run query
 $query->execute();
 $products = $query->fetchAll();
 $query->closeCursor();
@@ -49,7 +51,7 @@ $total = 0.0;
     </div>
   </nav>
   <table class="table text-center align-middle mx-auto container-fluid" style="max-width: 90%;">
-    <h3 class="text-center"><u>Order # <?php echo $orderNumber ?></u></h3>
+    <h3 class="text-center mt-3"><u>Order # <?php echo $orderNumber ?></u></h3>
     <thead>
       <tr>
         <th scope="col"></th>

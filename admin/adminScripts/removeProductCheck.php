@@ -14,7 +14,7 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (is
   //if customer, redirects user to customer homepage
   header('Location: ../../homepage.php');
 }
-
+//get data from form
 $productID = strtolower(trim($_POST['productID']));
 $admin_password = trim($_POST['admin_password']);
 $adminID = $_SESSION['account'];
@@ -40,7 +40,7 @@ $query->bindParam(':adminID', $adminID);
 $query->execute();
 $result = $query->fetch();
 
-
+//check if admin password is valid and remove product
 if (password_verify($admin_password, $result['password'])) {
   $query = $db->prepare("SELECT image FROM product WHERE productID = :productID");
   $query->bindParam(':productID', $productID);
