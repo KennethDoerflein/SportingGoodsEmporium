@@ -26,11 +26,12 @@ if (empty($productID)) {
   exit();
 }
 
-
+//prepare query for database
 $query = $db->prepare("DELETE FROM cart WHERE productID = :productID AND accountNumber = :accountNumber");
-  $query->bindValue(':accountNumber', $_SESSION['account']);
-  $query->bindValue(':productID', $productID);
+$query->bindValue(':accountNumber', $_SESSION['account']);
+$query->bindValue(':productID', $productID);
 
+//check if query was successful
 if ($query->execute()) {
   $_SESSION['itemRemoved'] = true;
   header('Location: ../cart.php');

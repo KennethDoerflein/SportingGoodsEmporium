@@ -1,6 +1,7 @@
 <?php
 //includes database connection
 require_once './db_connect.php';
+//get session variables
 session_start();
 
 if (!isset($_SESSION['logged_in'])) {
@@ -12,9 +13,12 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'admin') && (isset
   //if admin, redirects user to admin homepage
   header('Location: ./admin/adminHomepage.php');
 }
+
+//prepare query for database
 $query = $db->prepare("SELECT PRODUCT.productID, PRODUCT.price, PRODUCT.name, PRODUCT.image, CART.quantity, CART.dateAdded FROM CART INNER JOIN PRODUCT ON PRODUCT.productID = CART.productID WHERE CART.accountNumber = :accountNumber ORDER BY dateAdded DESC");
 $query->bindValue(':accountNumber', $_SESSION['account']);
 
+//query database
 $query->execute();
 $products = $query->fetchAll();
 $query->closeCursor();

@@ -1,10 +1,11 @@
 <?php
 //includes database connection
 require_once '../db_connect.php';
+//get session data
 session_start();
 
 if (!isset($_SESSION['logged_in'])) {
-  //if not logged in, redirects user to landing page
+  //if not logged in, redirects admin to login page
   header('Location: ./adminLogin.php');
 }
 
@@ -13,22 +14,19 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (is
   header('Location: ../homepage.php');
 }
 
+//get product id and prepare query
 $productID = filter_input(INPUT_GET, 'productID');
 if ($productID == NULL || $productID == FALSE) {
-  header('Location: ./homepage.php');
+  header('Location: ./adminProducts.php');
 } else {
   $query = $db->prepare("SELECT * FROM product where productID = :productID");
   $query->bindValue(':productID', $productID);
 }
 
+//run query
 $query->execute();
 $products = $query->fetchAll();
 $query->closeCursor();
-if (!empty($_SESSION['addCart']) && $_SESSION['addCart'] == 'MissingInput') {
-  $notice = 'There was an error adding to the cart. Please try again.';
-
-  $_SESSION['addCart'] = '';
-}
 ?>
 
 <!doctype html>
@@ -57,18 +55,18 @@ if (!empty($_SESSION['addCart']) && $_SESSION['addCart'] == 'MissingInput') {
 </head>
 
 <body>
-<nav class="navbar navbar-dark bg-dark mb-5">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="./adminHomepage.php">Home</a>
-    <a class="navbar-brand" href="./adminProducts.php">Products</a>
-    <form class="d-flex mx-auto" role="search" method="get" action="./adminProducts.php">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
-      <button class="btn btn-outline-success me-3" type="submit">Search</button>
-    </form>
-    <a class="navbar-brand" href="./adminAccount.php">Account</a>
-    <a class="navbar-brand" href="../scripts/logout.php">Logout</a>
-  </div>
-</nav>
+  <nav class="navbar navbar-dark bg-dark mb-5">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="./adminHomepage.php">Home</a>
+      <a class="navbar-brand" href="./adminProducts.php">Products</a>
+      <form class="d-flex mx-auto" role="search" method="get" action="./adminProducts.php">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
+        <button class="btn btn-outline-success me-3" type="submit">Search</button>
+      </form>
+      <a class="navbar-brand" href="./adminAccount.php">Account</a>
+      <a class="navbar-brand" href="../scripts/logout.php">Logout</a>
+    </div>
+  </nav>
   <?php
   // echo "logged in user email: " . $_SESSION['email'];
   // echo "<br>logged in user account number: " . $_SESSION['account'];

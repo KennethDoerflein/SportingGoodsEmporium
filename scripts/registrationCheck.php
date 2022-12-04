@@ -5,12 +5,12 @@ require_once '../db_connect.php';
 //includes session info
 session_start();
 
-
+//create account number and get date+time
 $accountNumber = mt_rand(10000000, 20000000);
 date_default_timezone_set("America/New_York");
 $date = date("Y/m/d H:i:s");
 
-//takes input and assigns them to variables
+//takes form input and assigns them to variables
 $email = strtolower(trim($_POST['email']));
 $password = trim($_POST['password']);
 $repassword = trim($_POST['repassword']);

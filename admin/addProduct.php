@@ -1,4 +1,5 @@
 <?php
+//get session data
 session_start();
 if (!isset($_SESSION['logged_in'])) {
   //if not logged in, redirects user to landing page
@@ -10,7 +11,7 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (is
   header('Location: ../homepage.php');
 }
 
-// check notices
+// check notices and display as needed
 if (!empty($_SESSION['missing_input']) && $_SESSION['missing_input']) {
   $notice = 'Please Try Again';
   $_SESSION['missing_input'] = '';

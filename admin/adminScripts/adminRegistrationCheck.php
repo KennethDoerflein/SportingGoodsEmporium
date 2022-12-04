@@ -14,7 +14,7 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (is
   //if customer, redirects user to customer homepage
   header('Location: ../../homepage.php');
 }
-
+//generate variable data needed
 $employeeID = mt_rand(10000000, 20000000);
 $salary = mt_rand(50000, 100000);
 date_default_timezone_set("America/New_York");

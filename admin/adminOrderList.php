@@ -1,5 +1,6 @@
 <?php
 require_once '../db_connect.php';
+//get session data
 session_start();
 if (!isset($_SESSION['logged_in'])) {
   //if not logged in, redirects user to landing page
@@ -10,7 +11,7 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (is
   //if customer, redirects user to customer homepage
   header('Location: ../homepage.php');
 }
-
+//get order number and prepare query
 $orderNum = filter_input(INPUT_GET, 'orderNum');
 if ($orderNum != NULL || $orderNum != FALSE) {
   $query = $db->prepare("SELECT DISTINCT orderNumber,purchaseDate FROM ORDERS where orderNumber = :orderNum");
@@ -18,7 +19,7 @@ if ($orderNum != NULL || $orderNum != FALSE) {
 } else {
   $query = $db->prepare("SELECT DISTINCT orderNumber,purchaseDate FROM ORDERS ORDER BY purchaseDate DESC");
 }
-
+//run query
 $query->execute();
 $products = $query->fetchAll();
 $query->closeCursor();
