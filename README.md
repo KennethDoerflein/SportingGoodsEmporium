@@ -1,14 +1,10 @@
 # SportingGoodsEmporium
 
-To Do
-- [x] Finish all major functionality
-- - [x] maybe add search to admin order list
-- - [x] sanitize input
-- [x] Add picture to landing page
-- [ ] add comments
-- [x] Make sure all pages have titles and check headers
-- [x] Add error/success messages on all pages
-- [x] check quantity when you order, update cart and show message
-- [x] make sure different picture sizes don't break cards
-- [ ] make sure nothing is broken and everything works
+# Steps to deploy site
 
+1. Download XAMPP
+2. Copy SportingGoodsEmporium folder to the htdocs folder within XAMPP
+3. Run XAMPP and start Apache and MySQL
+4. Go to phpMyAdmin and import sportinggoodsemporiumdatabase.sql
+5. Go to localhost/SportingGoodsEmporium/
+6. login or create an account to access the website
