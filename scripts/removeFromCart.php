@@ -20,7 +20,7 @@ $productID = filter_input(INPUT_GET, 'productID');
 
 if (empty($productID)) {
   $_SESSION['addCart'] = 'MissingInput';
-  //header('Location: javascript:history.back()');
+  header('Location: javascript:history.back()');
   //closes db connection
   $db = null;
   exit();
@@ -38,7 +38,7 @@ if ($query->execute()) {
   exit();
 } else {
   $_SESSION['removalErr'] = true;
-  //header('Location: ../cart.php');
+  header('Location: ../cart.php');
   exit();
 }
 
