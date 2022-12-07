@@ -13,7 +13,7 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (is
 
 // check notices
 if (!empty($_SESSION['missing_input']) && $_SESSION['missing_input']) {
-  $notice = 'Please Try Again';
+  $notice = 'Please Check Product ID and Try Again';
   $_SESSION['missing_input'] = '';
 } else if (!empty($_SESSION['image_name_exists']) && $_SESSION['image_name_exists']) {
   $notice = 'Please Rename Image';
