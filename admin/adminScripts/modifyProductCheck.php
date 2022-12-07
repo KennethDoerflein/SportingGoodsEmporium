@@ -34,7 +34,7 @@ $query->bindParam(':productID', $productID);
 $query->execute();
 $productInfo = $query->fetch();
 
-if (!$productID) {
+if (!$productID || !$productInfo) {
   $_SESSION['missing_input'] = true;
   header('Location: ../modifyProduct.php');
 
