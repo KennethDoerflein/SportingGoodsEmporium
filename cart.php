@@ -63,57 +63,20 @@ if (!empty($_SESSION['addCart']) && $_SESSION['addCart'] == 'added') {
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <title>SGE</title>
-  <style>
-    @media all and (min-width: 992px) {
-      .navbar .nav-item .dropdown-menu {
-        display: none;
-      }
-
-      .navbar .nav-item:hover .dropdown-menu {
-        display: block;
-      }
-    }
-  </style>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand navbar-dark bg-dark mb-5">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="./homepage.php">Home</a>
-      <div class="collapse navbar-collapse">
-        <ul class="navbar-nav">
-          <li class="nav-item dropdown">
-            <a class="navbar-brand dropdown-toggle" href="#" data-bs-toggle="dropdown">Categories</a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="./homepage.php?category_id=All">All Products</a></li>
-              <li><a class="dropdown-item" href="./homepage.php?category_id=Tops">Tops</a></li>
-              <li><a class="dropdown-item" href="./homepage.php?category_id=Bottoms">Bottoms</a></li>
-              <li><a class="dropdown-item" href="./homepage.php?category_id=Shoes">Shoes</a></li>
-              <li><a class="dropdown-item" href="./homepage.php?category_id=Hats">Hats</a></li>
-              <li><a class="dropdown-item" href="./homepage.php?category_id=Socks">Socks</a></li>
-              <li><a class="dropdown-item" href="./homepage.php?category_id=Exercise Equipment">Exercise Equipment</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <form class="d-flex" role="search" method="get" action="./homepage.php">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
-        <button class="btn btn-outline-success me-3" type="submit">Search</button>
-      </form>
-      <a class="navbar-brand" href="./cart.php">Cart</a>
-      <a class="navbar-brand" href="./account.php">Account</a>
-      <a class="navbar-brand" href="./scripts/logout.php">Logout</a>
-    </div>
-  </nav>
+  <?php include './components/navbar.php'; ?>
+
+  <center>
+    <h1>
+      <div style='color: red;'><?php if (!empty($notice)) {
+                                  echo $notice;
+                                } ?></div>
+    </h1>
+  </center>
 
   <table class="table text-center align-middle mx-auto container-fluid" style="max-width: 90%;">
-    <center>
-      <h1>
-        <div style='color: red;'><?php if (!empty($notice)) {
-                                    echo $notice;
-                                  } ?></div>
-      </h1>
-    </center>
     <h3 class="text-center"><u>Cart</u></h3>
     <thead>
       <tr>

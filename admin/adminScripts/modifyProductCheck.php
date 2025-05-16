@@ -27,7 +27,8 @@ $admin_password = trim($_POST['admin_password']);
 $adminID = $_SESSION['account'];
 $errFree = true;
 
-$query = $db->prepare("SELECT image FROM product WHERE productID = :productID");
+//check if product exists
+$query = $db->prepare("SELECT * FROM product WHERE productID = :productID");
 $query->bindParam(':productID', $productID);
 
 //gets any elements from database that has matching email
@@ -43,12 +44,6 @@ if (!$productID || !$productInfo) {
   exit();
 }
 
-$image_dir = "assets/";
-$target_file = $image_dir . basename($_FILES["product_image"]['name']);
-$image = $_FILES['product_image'];
-$uploadOk = 1;
-$imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
 //prepares query statement
 $query = $db->prepare("SELECT * FROM employee WHERE employeeID = :adminID");
 $query->bindParam(':adminID', $adminID);
@@ -59,51 +54,6 @@ $result = $query->fetch();
 
 //check if admin password is correct
 if (password_verify($admin_password, $result['password'])) {
-  if (is_uploaded_file($_FILES['product_image']['tmp_name'])) {
-    $check = getimagesize($_FILES["product_image"]["tmp_name"]);
-    if ($check !== false) {
-      // Check if file already exists
-      if (file_exists($target_file)) {
-        $_SESSION['image_name_exists'] = true;
-        $uploadOk = 0;
-      }
-
-      // Check file size
-      if ($_FILES["product_image"]["size"] > 500000) {
-        $_SESSION['file_too_large'] = true;
-        $uploadOk = 0;
-      }
-
-      // Allow certain file formats
-      if (
-        $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-        && $imageFileType != "gif"
-      ) {
-        $_SESSION['invalid_file_type'] = true;
-        $uploadOk = 0;
-      }
-
-      // Check if $uploadOk is set to 0 by an error
-      if ($uploadOk == 0) {
-        $_SESSION['unknown_err'] = true;
-        // if everything is ok, try to upload file
-      } else {
-        if (move_uploaded_file($_FILES["product_image"]["tmp_name"], "../../" . $target_file)) {
-          $_SESSION['image_uploaded'] = true;
-        } else {
-          $_SESSION['error_uploading_image'] = true;
-        }
-      }
-
-      $query = $db->prepare("UPDATE product SET image = :target_file WHERE productID = :productID");
-      $query->bindParam(':target_file', $target_file);
-      $query->bindParam(':productID', $productID);
-      if ($query->execute()) {
-        unlink("../../" . $productInfo['image']);
-      }
-    }
-  }
-
   //update product name if provided
   if ($product_name) {
     $query = $db->prepare("UPDATE product SET name = :product_name WHERE productID = :productID");
@@ -161,25 +111,20 @@ if (password_verify($admin_password, $result['password'])) {
 } else {
   $_SESSION['invalidPass'] = true;
   header('Location: ../modifyProduct.php');
-
-
   //closes database connection
   $database = null;
   exit();
 }
-// if error free go back to modify page
+
 if ($errFree) {
+  //redirects to modify product page if successful
   $_SESSION['modifyProduct_success'] = true;
-  header("Location: ../modifyProduct.php");
+  header('Location: ../modifyProduct.php');
 } else {
+  //redirects to modify product page if failed
   $_SESSION['missing_input'] = true;
   header('Location: ../modifyProduct.php');
-
-  //closes database connection
-  $database = null;
-  exit();
 }
-
 
 //closes database connection
 $database = null;

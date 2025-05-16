@@ -38,18 +38,8 @@ $total = 0.0;
 </head>
 
 <body>
-  <nav class="navbar navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="./adminHomepage.php">Home</a>
-      <a class="navbar-brand" href="adminProducts.php">Products</a>
-      <form class="d-flex mx-auto" role="search" method="get" action="./adminProducts.php">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
-        <button class="btn btn-outline-success me-3" type="submit">Search</button>
-      </form>
-      <a class="navbar-brand" href="./adminAccount.php">Account</a>
-      <a class="navbar-brand" href="../scripts/logout.php">Logout</a>
-    </div>
-  </nav>
+  <?php include './components/navbar.php'; ?>
+
   <table class="table text-center align-middle mx-auto container-fluid" style="max-width: 90%;">
     <h3 class="text-center mt-3"><u>Order # <?php echo $orderNumber ?></u></h3>
     <thead>

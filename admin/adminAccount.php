@@ -37,43 +37,14 @@ $query->closeCursor();
 </head>
 
 <body>
-  <nav class="navbar navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="./adminHomepage.php">Home</a>
-      <a class="navbar-brand" href="adminProducts.php">Products</a>
-      <form class="d-flex mx-auto" role="search" method="get" action="./adminProducts.php">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
-        <button class="btn btn-outline-success me-3" type="submit">Search</button>
-      </form>
-      <a class="navbar-brand" href="./adminAccount.php">Account</a>
-      <a class="navbar-brand" href="../scripts/logout.php">Logout</a>
-    </div>
-  </nav>
-  <?php
-  // echo "logged in user email: " . $_SESSION['email'];
-  // echo "<br>logged in user account number: " . $_SESSION['account'];
-  ?>
+  <?php include './components/navbar.php'; ?>
+
   <div class="mx-auto container-fluid text-center">
-    <?php if ($_SESSION['userType'] == 'customer') {
-      echo '<a href="./orders.php" class="btn btn-dark disabled">View Orders</a>';
-    }
-    echo '<div class="mb-5"></div>';
-    echo '<hr>';
-    echo '<div class="mb-5"></div>';
-    echo '<h3><u>Account Information</u></h3>';
-    echo 'Email: ' . $accountInfo['email'];
-    echo '<div class="mb-2"></div>';
-    echo 'First Name: ' . $accountInfo['Fname'];
-    echo '<div class="mb-2"></div>';
-    echo 'Last Name: ' . $accountInfo['Lname'];
-    echo '<div class="mb-2"></div>';
-    echo 'Phone Number: ' . $accountInfo['phoneNumber'];
-    echo '<div class="mb-2"></div>';
-    ?>
-
+    <div class="fs-5">Name: <?php echo $accountInfo['FName'] . " " . $accountInfo['LName']; ?></div>
+    <div class="fs-5">Email: <?php echo $accountInfo['Email']; ?></div>
+    <div class="fs-5">Phone: <?php echo $accountInfo['Phone']; ?></div>
+    <div class="fs-5">Address: <?php echo $accountInfo['Address']; ?></div>
   </div>
-
-  <div class="mb-5"></div>
 
 </body>
 

@@ -33,33 +33,25 @@ if (!empty($_SESSION['missing_input']) && $_SESSION['missing_input']) {
 }
 ?>
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-  <title>Modify Product</title>
+  <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <title>SGE</title>
 </head>
 
 <body>
-  <nav class="navbar navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="./adminHomepage.php">Home</a>
-      <a class="navbar-brand" href="./adminProducts.php">Products</a>
-      <form class="d-flex mx-auto" role="search" method="get" action="./adminProducts.php">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
-        <button class="btn btn-outline-success me-3" type="submit">Search</button>
-      </form>
-      <a class="navbar-brand" href="./adminAccount.php">Account</a>
-      <a class="navbar-brand" href="../scripts/logout.php">Logout</a>
-    </div>
-  </nav>
+  <?php include './components/navbar.php'; ?>
+
   <div class="container">
-    <h1 class="text-center mt-3"><strong>Modify a Product</strong></h1>
+    <h1 class="text-center">Modify Product</h1>
     <center>
       <h1>
         <div style='color: red;'><?php if (!empty($notice)) {
@@ -70,21 +62,21 @@ if (!empty($_SESSION['missing_input']) && $_SESSION['missing_input']) {
     <div class="text-center mb-3">Only fill in the product information you want changed:</div>
     <form enctype="multipart/form-data" method="POST" class="form-horizontal" action="./adminScripts/modifyProductCheck.php">
 
-      <div class=" form-group row mb-2">
+      <div class="form-group row mb-2">
         <label class="col-form-label col-sm-2" for="productID">Product ID:</label>
         <div class="col-sm-10">
           <input required type="text" class="form-control" id="productID" name="productID">
         </div>
       </div>
 
-      <div class=" form-group row mb-2">
+      <div class="form-group row mb-2">
         <label class="col-form-label col-sm-2" for="product_name">Product Name/Title:</label>
         <div class="col-sm-10">
           <input type="text" class="form-control" id="product_name" name="product_name">
         </div>
       </div>
 
-      <div class=" form-group row mb-2">
+      <div class="form-group row mb-2">
         <label class="col-form-label col-sm-2" for="product_category">Product Category:</label>
         <div class="col-sm-10">
           <select class="form-control" name="product_category" id="product_category">
@@ -99,42 +91,35 @@ if (!empty($_SESSION['missing_input']) && $_SESSION['missing_input']) {
         </div>
       </div>
 
-      <div class=" form-group row mb-2">
+      <div class="form-group row mb-2">
         <label class="col-form-label col-sm-2" for="product_price">Product Price:</label>
         <div class="col-sm-10">
           <input type="number" class="form-control" id="product_price" placeholder="Ex: xx.xx" name="product_price" pattern="\d?\d\.\d\d" maxlength=5 size=5 min=0.01 step=0.01>
         </div>
       </div>
 
-      <div class=" form-group row mb-2">
+      <div class="form-group row mb-2">
         <label class="col-form-label col-sm-2" for="product_manufacturer">Product Manufacturer:</label>
         <div class="col-sm-10">
           <input type="text" class="form-control" id="product_manufacturer" name="product_manufacturer">
         </div>
       </div>
 
-      <div class=" form-group row mb-2">
+      <div class="form-group row mb-2">
         <label class="col-form-label col-sm-2" for="product_description">Product Description:</label>
         <div class="col-sm-10">
           <input type="text" class="form-control" id="product_description" name="product_description">
         </div>
       </div>
 
-      <div class=" form-group row mb-2">
+      <div class="form-group row mb-2">
         <label class="col-form-label col-sm-2" for="product_quantity">Product Quantity:</label>
         <div class="col-sm-10">
           <input type="number" class="form-control" id="product_quantity" name="product_quantity" min=1>
         </div>
       </div>
 
-      <div class=" form-group row mb-2">
-        <label class="col-form-label col-sm-2" for="product_image">Product Image:</label>
-        <div class="col-sm-10">
-          <input type="file" class="form-control" id="product_image" name="product_image">
-        </div>
-      </div>
-
-      <div class=" form-group row mb-2">
+      <div class="form-group row mb-2">
         <label class="col-form-label col-sm-2" for="admin_password">Admin Password:</label>
         <div class="col-sm-10">
           <input required type="password" class="form-control" id="admin_password" name="admin_password">
@@ -148,6 +133,9 @@ if (!empty($_SESSION['missing_input']) && $_SESSION['missing_input']) {
         </div>
       </div>
     </form>
+  </div>
+
+  <div class="mb-5"></div>
 </body>
 
 </html>

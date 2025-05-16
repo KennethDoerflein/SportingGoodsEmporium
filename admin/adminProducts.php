@@ -41,37 +41,29 @@ $products = $query->fetchAll();
   <title>SGE</title>
 </head>
 
-<nav class="navbar navbar-dark bg-dark mb-5">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="./adminHomepage.php">Home</a>
-    <a class="navbar-brand" href="./adminProducts.php">Products</a>
-    <form class="d-flex mx-auto" role="search" method="get" action="./adminProducts.php">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
-      <button class="btn btn-outline-success me-3" type="submit">Search</button>
-    </form>
-    <a class="navbar-brand" href="./adminAccount.php">Account</a>
-    <a class="navbar-brand" href="../scripts/logout.php">Logout</a>
+<body>
+  <?php include './components/navbar.php'; ?>
+
+  <div class="mx-auto container-fluid row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 g-4 text-center">
+    <?php foreach ($products as $product) : ?>
+      <?php
+      echo '<div class="col">';
+      echo '<div class="border border-dark border-3 mx-auto card h-100 text-center" style="width: 20rem;">';
+      echo '<img style="max-height: 450px;"src="../' . $product['image'] . '" class="card-img-top mt-auto">';
+      echo '<div class="card-footer mt-auto d-flex flex-column">';
+      echo '<strong class="card-title">' . $product['name'] . '</strong>';
+      echo '<p class="card-text">Price: $' . $product['price'] . '</p>';
+      echo '<p class="card-text">Product ID: ' . $product['productID'] . '</p>';
+      echo '<p class="card-text">Quantity: ' . $product['quantity'] . '</p>';
+      echo '<a href="./adminProductView.php?productID=' . $product['productID'] . '" class="btn btn-dark mt-auto">View Product</a>';
+      echo '</div>';
+      echo '</div>';
+      echo '</div>';
+      ?>
+    <?php endforeach; ?>
   </div>
-</nav>
-<div class="mx-auto container-fluid row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 g-4 text-center">
-  <?php foreach ($products as $product) : ?>
-    <?php
-    echo '<div class="col">';
-    echo '<div class="border border-dark border-3 mx-auto card h-100 text-center" style="width: 20rem;">';
-    echo '<img style="max-height: 450px;"src="../' . $product['image'] . '" class="card-img-top mt-auto">';
-    echo '<div class="card-footer mt-auto d-flex flex-column">';
-    echo '<strong class="card-title">' . $product['name'] . '</strong>';
-    echo '<p class="card-text">Price: $' . $product['price'] . '</p>';
-    echo '<p class="card-text">Product ID: ' . $product['productID'] . '</p>';
-    echo '<p class="card-text">Quantity: ' . $product['quantity'] . '</p>';
-    echo '<a href="./adminProductView.php?productID=' . $product['productID'] . '" class="btn btn-dark mt-auto">View Product</a>';
-    echo '</div>';
-    echo '</div>';
-    echo '</div>';
-    ?>
-  <?php endforeach; ?>
-</div>
-<div class="mb-5"></div>
+
+  <div class="mb-5"></div>
 </body>
 
 </html>

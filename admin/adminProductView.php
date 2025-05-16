@@ -41,36 +41,11 @@ $query->closeCursor();
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <title>SGE</title>
-  <style>
-    @media all and (min-width: 992px) {
-      .navbar .nav-item .dropdown-menu {
-        display: none;
-      }
-
-      .navbar .nav-item:hover .dropdown-menu {
-        display: block;
-      }
-    }
-  </style>
 </head>
 
 <body>
-  <nav class="navbar navbar-dark bg-dark mb-5">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="./adminHomepage.php">Home</a>
-      <a class="navbar-brand" href="./adminProducts.php">Products</a>
-      <form class="d-flex mx-auto" role="search" method="get" action="./adminProducts.php">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchQuery">
-        <button class="btn btn-outline-success me-3" type="submit">Search</button>
-      </form>
-      <a class="navbar-brand" href="./adminAccount.php">Account</a>
-      <a class="navbar-brand" href="../scripts/logout.php">Logout</a>
-    </div>
-  </nav>
-  <?php
-  // echo "logged in user email: " . $_SESSION['email'];
-  // echo "<br>logged in user account number: " . $_SESSION['account'];
-  ?>
+  <?php include './components/navbar.php'; ?>
+
   <center>
     <h1>
       <div style='color: red;'><?php if (!empty($notice)) {
@@ -78,6 +53,7 @@ $query->closeCursor();
                                 } ?></div>
     </h1>
   </center>
+
   <div class="container-fluid mx-auto text-center">
     <?php foreach ($products as $product) : ?>
       <?php
@@ -93,6 +69,7 @@ $query->closeCursor();
       ?>
     <?php endforeach; ?>
   </div>
+
   <div class="mb-5"></div>
 </body>
 
