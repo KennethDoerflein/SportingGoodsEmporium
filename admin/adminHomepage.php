@@ -29,13 +29,12 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (is
 <body>
   <?php include './components/navbar.php'; ?>
 
-  <div class="mx-auto container-fluid row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 g-4 text-center">
-    <div class="text-center container-fluid p-2 mt-4">
-      <h3 class="mx-auto">Admin Panel</h3>
-    </div>
-
+  <div class="text-center container-fluid">
+    <h3 class="mx-auto">Admin Panel</h3>
     <hr class="mx-auto mb-4">
+  </div>
 
+  <div class="mx-auto container-fluid row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 g-4 text-center">
     <div class="d-grid gap-4 col-4 mx-auto">
       <a href="./adminOrderList.php" class="btn btn-dark" role="button">View Orders</a>
       <a href="./adminRegister.php" class="btn btn-dark" role="button">Add Admin</a>

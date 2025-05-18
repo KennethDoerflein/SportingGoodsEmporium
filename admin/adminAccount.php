@@ -40,10 +40,10 @@ $query->closeCursor();
   <?php include './components/navbar.php'; ?>
 
   <div class="mx-auto container-fluid text-center">
-    <div class="fs-5">Name: <?php echo $accountInfo['FName'] . " " . $accountInfo['LName']; ?></div>
-    <div class="fs-5">Email: <?php echo $accountInfo['Email']; ?></div>
-    <div class="fs-5">Phone: <?php echo $accountInfo['Phone']; ?></div>
-    <div class="fs-5">Address: <?php echo $accountInfo['Address']; ?></div>
+    <div class="fs-5">Name: <?php echo $accountInfo['Fname'] . " " . $accountInfo['Lname']; ?></div>
+    <div class="fs-5">Email: <?php echo $accountInfo['email']; ?></div>
+    <div class="fs-5">Phone: <?php echo $accountInfo['phoneNumber']; ?></div>
+    <div class="fs-5">Salary: $<?php echo $accountInfo['salary']; ?></div>
   </div>
 
 </body>
