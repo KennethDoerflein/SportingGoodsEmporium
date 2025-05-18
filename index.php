@@ -25,7 +25,7 @@
   <div class="container-fluid bg-default mt-3">
     <div class="text-center p-2">
       <h1>Welcome to Sporting Goods Emporium</h1>
-      <img class="rounded img-fluid" style="max-width: 70%;" src="./assets/henningsvar-football-soccer-stadium-lofoten-norway-2.jpg">
+      <img class="rounded img-fluid" style="max-width: 50%;" src="./assets/henningsvar-football-soccer-stadium-lofoten-norway-2.jpg">
       <div>
         <a href="./login.php"><button type="button" class="btn btn-primary mt-3">Login</button></a>
         <a href="./register.php"><button type="button" class="btn btn-success mt-3">Create Account</button></a>
