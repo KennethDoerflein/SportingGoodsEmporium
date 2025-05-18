@@ -24,7 +24,7 @@ CREATE DATABASE IF NOT EXISTS `sportinggoodsemporiumdatabase` DEFAULT CHARACTER 
 USE `sportinggoodsemporiumdatabase`;
 
 -- --------------------------------------------------------
-GRANT SELECT, INSERT, DELETE, UPDATE ON sportinggoodsemporiumdatabase.* TO sportinggoodsemporium@localhost IDENTIFIED BY 'sportinggoodsemporiumpass';
+GRANT SELECT, INSERT, DELETE, UPDATE ON sportinggoodsemporiumdatabase.* TO sportinggoodsemporium@localhost IDENTIFIED BY 'PASSWORD_PLACEHOLDER';
 
 --
 -- Table structure for table `cart`
