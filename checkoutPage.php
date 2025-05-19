@@ -15,7 +15,7 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'admin') && (isset
 }
 
 //prepare query for database
-$query = $db->prepare("SELECT product.productID, product.price, product.name, product.image, CART.quantity, CART.dateAdded FROM CART INNER JOIN product ON product.productID = CART.productID WHERE CART.accountNumber = :accountNumber ORDER BY dateAdded DESC");
+$query = $db->prepare("SELECT product.productID, product.price, product.name, product.image, cart.quantity, cart.dateAdded FROM cart INNER JOIN product ON product.productID = cart.productID WHERE cart.accountNumber = :accountNumber ORDER BY dateAdded DESC");
 $query->bindValue(':accountNumber', $_SESSION['account']);
 
 //query database
