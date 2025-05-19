@@ -14,7 +14,7 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'admin') && (isset
   header('Location: ./admin/adminHomepage.php');
 }
 //prepare query
-$query = $db->prepare("SELECT DISTINCT orderNumber,purchaseDate FROM ORDERS WHERE accountNumber = :accountNumber ORDER BY purchaseDate DESC");
+$query = $db->prepare("SELECT DISTINCT orderNumber, purchaseDate FROM orders WHERE accountNumber = :accountNumber ORDER BY purchaseDate DESC");
 $query->bindValue(':accountNumber', $_SESSION['account']);
 
 //query database and fetch results

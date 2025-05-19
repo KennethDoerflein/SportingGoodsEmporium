@@ -14,10 +14,10 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (is
 //get order number and prepare query
 $orderNum = filter_input(INPUT_GET, 'orderNum');
 if ($orderNum != NULL || $orderNum != FALSE) {
-  $query = $db->prepare("SELECT DISTINCT orderNumber,purchaseDate FROM ORDERS where orderNumber = :orderNum");
+  $query = $db->prepare("SELECT DISTINCT orderNumber,purchaseDate FROM orders where orderNumber = :orderNum");
   $query->bindValue(':orderNum', $orderNum);
 } else {
-  $query = $db->prepare("SELECT DISTINCT orderNumber,purchaseDate FROM ORDERS ORDER BY purchaseDate DESC");
+  $query = $db->prepare("SELECT DISTINCT orderNumber,purchaseDate FROM orders ORDER BY purchaseDate DESC");
 }
 //run query
 $query->execute();
