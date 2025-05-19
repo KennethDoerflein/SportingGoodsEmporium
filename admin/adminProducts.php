@@ -17,7 +17,7 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (is
 //get search request and prepare query
 $searchReq = filter_input(INPUT_GET, 'searchQuery');
 if ($searchReq != NULL || $searchReq != FALSE) {
-  $query = $db->prepare("SELECT * FROM PRODUCT WHERE name like :search OR description like :search OR manufacturer like :search OR category like :search ORDER BY category DESC");
+  $query = $db->prepare("SELECT * FROM product WHERE name like :search OR description like :search OR manufacturer like :search OR category like :search ORDER BY category DESC");
   $query->bindValue(':search', "%" . $searchReq . "%");
 } else {
   $query = $db->prepare("SELECT * FROM product");

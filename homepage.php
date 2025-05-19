@@ -20,7 +20,7 @@ $searchReq = filter_input(INPUT_GET, 'searchQuery');
 
 //prepare query based on input received
 if ($searchReq != NULL || $searchReq != FALSE) {
-  $query = $db->prepare("SELECT * FROM PRODUCT WHERE name like :search OR description like :search OR manufacturer like :search OR category like :search ORDER BY category DESC");
+  $query = $db->prepare("SELECT * FROM product WHERE name like :search OR description like :search OR manufacturer like :search OR category like :search ORDER BY category DESC");
   $query->bindValue(':search', "%" . $searchReq . "%");
 } else if ($category_id == NULL || $category_id == FALSE || $category_id == "All") {
   $query = $db->prepare("SELECT * FROM product");

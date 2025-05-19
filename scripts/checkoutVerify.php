@@ -52,7 +52,7 @@ do {
 } while ($result);
 
 //prepare query
-$query = $db->prepare("SELECT CART.productID, PRODUCT.price, CART.quantity, PRODUCT.quantity as inStock FROM CART INNER JOIN PRODUCT ON PRODUCT.productID = CART.productID WHERE CART.accountNumber = :accountNumber ORDER BY dateAdded DESC");
+$query = $db->prepare("SELECT CART.productID, product.price, CART.quantity, product.quantity as inStock FROM CART INNER JOIN product ON product.productID = CART.productID WHERE CART.accountNumber = :accountNumber ORDER BY dateAdded DESC");
 $query->bindValue(':accountNumber', $_SESSION['account']);
 //execute query
 $query->execute();
