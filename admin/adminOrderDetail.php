@@ -14,7 +14,7 @@ if ((isset($_SESSION['userType']) && $_SESSION['userType'] == 'customer') && (is
 }
 //get order number and prepare query
 $orderNumber = filter_input(INPUT_GET, 'orderNumber');
-$query = $db->prepare("SELECT PRODUCT.productID, orders.price, orders.shippingAddress, orders.billingAddress, PRODUCT.name, PRODUCT.image, orders.quantity FROM orders INNER JOIN PRODUCT ON PRODUCT.productID = orders.productID WHERE orders.orderNumber = :orderNumber");
+$query = $db->prepare("SELECT product.productID, orders.price, orders.shippingAddress, orders.billingAddress, product.name, product.image, orders.quantity FROM orders INNER JOIN product ON product.productID = orders.productID WHERE orders.orderNumber = :orderNumber");
 $query->bindValue(':orderNumber', $orderNumber);
 //run query
 $query->execute();
